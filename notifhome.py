@@ -5,6 +5,9 @@ from cork import Cork
 from cork.backends import SQLiteBackend
 import logging
 import myconfig
+import sqlite3
+from datetime import datetime
+
 
 logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
@@ -12,6 +15,8 @@ bottle.debug(True)
 
 db = SQLiteBackend(myconfig.DB_NAME, initialize=False)
 corkAuth = Cork(backend=db, email_sender='xxx@gmail.com', smtp_url='smtp://smtp.magnet.ie')
+
+db_connection = sqlite3.connect(myconfig.DB_NAME)
 
 app = bottle.app()
 session_opts = {
@@ -24,19 +29,32 @@ session_opts = {
 }
 app = SessionMiddleware(app, session_opts)
 
-# #  Bottle methods  # #
-
+## Bottle methods ##
 def postd():
     return bottle.request.forms
-
 
 def post_get(name, default=''):
     return bottle.request.POST.get(name, default).strip()
 
-@route('/hello/<name>')
-def index(name):
-    return template('<b>Hello {{name}}</b>!', name=name)
 
+@bottle.post('/notification')
+def add_notification():
+	"""Only authenticated users can see this"""
+	corkAuth.require(fail_redirect='/login')
+    
+	user    = corkAuth.current_user.username
+	message = post_get('message')
+	light   = post_get('light')
+	sound   = post_get('sound')
+	sent_at = datetime.now().strftime(myconfig.DATE_FORMAT)
+	cursor  = db_connection.execute("INSERT INTO notifications(message, username, light, sound, sent_at) VALUES (?, ?, ?, ?, ?)", (message, user, light, sound, sent_at))
+	db_connection.commit()
+	# Show message on OLED
+	# Blink LED
+	# Bip
+	return dict(ok=True, msg='')
+
+	
 @bottle.post('/login')
 def login():
     """Authenticate users"""
@@ -79,10 +97,15 @@ def change_password():
     
     
 @bottle.route('/')
+@bottle.view('home')
 def index():
     """Only authenticated users can see this"""
     corkAuth.require(fail_redirect='/login')
-    return 'Welcome! <a href="/admin">Admin page</a> <a href="/logout">Logout</a>'
+    cursor = db_connection.execute("SELECT * FROM notifications")
+    return dict(
+        current_user=corkAuth.current_user,
+        notifications=cursor
+    )
 
 
 # Admin-only pages

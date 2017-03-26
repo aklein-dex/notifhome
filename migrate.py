@@ -26,9 +26,9 @@ def initialize_database():
         INSERT INTO roles (role, level) VALUES ('admin', 100);
         INSERT INTO roles (role, level) VALUES ('user',   50);
         CREATE TABLE notifications
-             (id INTEGER, username TEXT, message TEXT, received_at TEXT, read_at TEXT, light_on INTEGER, sound_on INTEGER);
+             (id INTEGER PRIMARY KEY, username TEXT, message TEXT, sent_at TEXT, read_at TEXT, light INTEGER, sound INTEGER);
         CREATE TABLE templates
-			 (id INTEGER, message TEXT, light_on INTEGER, sound_on INTEGER);
+			 (id INTEGER PRIMARY KEY, message TEXT, light_on INTEGER, sound_on INTEGER);
 	    CREATE TABLE version (id INTEGER);
 	    INSERT INTO version VALUES (1);
     """)
