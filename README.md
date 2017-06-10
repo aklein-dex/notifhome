@@ -1,12 +1,7 @@
 # notifhome
-Minimalist python Web server to manage notifications with the Onion Omega2 board.
+Minimalist python Web server (using [bottle](https://bottlepy.org/)) to manage notifications with the [Onion Omega2](https://onion.io/) board.
 
-https://onion.io/
-
-https://bottlepy.org/
-
-I didn't receive the Omega2 yet, but here is the steps to setup bottle on a VM.
-I'll update this page once I have the Omega2.
+*I received the board (see image) and will soon start to work on it and update the instructions below.*
 
 ### Install python
 
