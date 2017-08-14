@@ -71,18 +71,12 @@ I wanted to use [Cork](http://cork.firelet.net/) for authentication and authoriz
 it needs to compile some C code. Installing a C compiler on the Omega is not that easy, so instead
 I'll handle authentication and authorization by myself.
 
-#### Setup
-
-After cloning the repo, run this command to create the database:
-```
-$ pythom migrate.py init
-```
 
 #### Run the server
 
 Simply run the command:
 ```
-$ python notifhome.py
+$ python startup.py
 ```
 Open your browser to http://localhost:9090/. The default login/pwd is admin/admin.
 
