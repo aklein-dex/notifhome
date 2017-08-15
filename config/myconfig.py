@@ -4,8 +4,10 @@ PORT=9090
 
 DATE_FORMAT="%Y-%m-%d %H:%M:%S"
 
+SESSION_KEY="change me"
+
 # File containing the list of users
-USERS_FILE="/root/notifhome/users.authz"
+USERS_FILE="/home/alex/workspace/notifhome/config/users.authz"
 
 # Folder containing unread notifications.
 # In this folder, 1 file is 1 notification.

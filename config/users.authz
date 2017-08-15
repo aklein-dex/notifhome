@@ -1,2 +1,2 @@
-alex:admin:123456
-nina:user:pwd123
+admin:123456:admin
+nina:pwd123:user
