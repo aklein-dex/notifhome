@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="content-type">
+</head>
+<body>
 <div id='main'>
     <h1>Notifhome</h1>
     
@@ -37,6 +39,7 @@
 	  %end
       <a href="/logout">logout</a>
     </div>
+    
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>
         // Prevent form submission, send POST asynchronously and parse returned JSON
@@ -100,4 +103,5 @@ div#urls {
   right:1em;
 }
 </style>
-
+</body>
+</html>

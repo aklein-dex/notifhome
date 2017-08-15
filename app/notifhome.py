@@ -1,5 +1,6 @@
 import sys
 from config import myconfig
+from app.models.user import User
 from bottle import route, run, template
 import bottle
 from beaker.middleware import SessionMiddleware
@@ -23,13 +24,36 @@ session_opts = {
 app = SessionMiddleware(app, session_opts)
 
 
-@bottle.route('/login')
+@bottle.get('/login')
 @bottle.view('app/views/login')
 def login():
     """Serve login form"""
     return {}
 	
+@bottle.post('/login')
+def login():
+    """Authenticate users"""
+    username = post_get('username')
+    password = post_get('password')
+    # if authenticated then redirect to "/", otherwise stay here.
+    
+@bottle.route('/')
+@bottle.view('app/views/home')
+def index():
+    """Only authenticated users can see this"""
+    # if not authenticated, then redirect to "/login".
+    current_user = User("alex", "pwd", "admin")
+    return dict(
+        current_user = current_user,
+        notifications = []
+    )
 
+## Bottle methods ##
+def postd():
+    return bottle.request.forms
+
+def post_get(name, default=''):
+    return bottle.request.POST.get(name, default).strip()
 
 ###### Web application main ######
 def start_server():

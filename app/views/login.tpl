@@ -2,21 +2,21 @@
 <html>
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="content-type">
+</head>
+<body>
 <div id="hbox">
-  <div class="box">
-      <h2>Login</h2>
-      <p>Please insert your credentials:</p>
-      <form action="login" method="post" name="login">
-          <input type="text" name="username" />
-          <input type="password" name="password" />
+    <div class="box">
+        <h2>Notifhome</h2>
+        <form action="login" method="post" name="login">
+            <input type="text" name="username" placeholder="username"/>
+            <input type="password" name="password" placeholder="password"/>
 
-          <br/><br/>
-          <button type="submit" > OK </button>
-          <button type="button" class="close"> Cancel </button>
-      </form>
-      <br />
-  </div>
-  <br style="clear: left;" />
+            <br/><br/>
+            <button type="submit">login</button>
+        </form>
+        <br />
+    </div>
+    <br style="clear: left;" />
 </div>
 <style>
 div {
@@ -34,3 +34,5 @@ input {
 }
 input:hover { background: #fefefe}
 </style>
+</body>
+</html>
