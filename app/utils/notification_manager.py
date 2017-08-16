@@ -9,7 +9,7 @@ class NotificationManager:
         self.date_format = date_format
         
     def create_notification(self, username, message, light= 1, sound = 1):
-        # Read the users file
+        # Make sure all params are here
         if not username:
             return False
         if not message:

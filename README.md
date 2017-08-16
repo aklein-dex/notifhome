@@ -45,31 +45,37 @@ git version 2.11.0
 
 #### Install python 3
 
-It will take 3.4M + 7.4M of disk space.
+It will take 3.4M of disk space.
 
 ```
 $ opkg update
 $ opkg install python3-light
-$ opkg install python3-pip
-# when using pip you may encounter a small configuration issue with the setuptools module and can be easily fixed:
-$ pip3 install --upgrade setuptools
 ```
 
 #### Install bottle
 
-[Bottle](https://bottlepy.org/docs/dev/) is a fast, simple and lightweight WSGI micro web-framework.
-[Beaker](https://github.com/bottlepy/bottle-beaker) is session and caching library with WSGI Middleware.
+TODO: just download bottle, and dont use pip to save space.
 
-It will take 0.2M + 0.2M.
+
+[Bottle](https://bottlepy.org/docs/dev/) is a fast, simple and lightweight WSGI micro web-framework.
+
+It will take 0.2M.
+
+You can use pip (7.4M of disk space) or download the file directly from github [here](https://github.com/bottlepy/bottle/raw/master/bottle.py).
 
 ```
+$ opkg install python3-pip
+# when using pip you may encounter a small configuration issue with the setuptools module and can be easily fixed:
+$ pip3 install --upgrade setuptools
+
 $ pip3 install bottle
-$ pip3 install bottle-beaker
 ```
 
 I wanted to use [Cork](http://cork.firelet.net/) for authentication and authorization but to install it
 it needs to compile some C code. Installing a C compiler on the Omega is not that easy, so instead
 I'll handle authentication and authorization by myself.
+I wanted to use [Beaker](https://github.com/bottlepy/bottle-beaker), a library for is session and caching with WSGI Middleware
+but it doesn't seem to work.
 
 
 #### Run the server
