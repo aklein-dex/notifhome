@@ -1,58 +1,44 @@
 import sys
 from config import myconfig
 from app.models.user import User
-from app.lib.authz import Authz
+from app.utils.authz import Authz
 from bottle import route, run, template
 import bottle
-from beaker.middleware import SessionMiddleware
 import logging
 from datetime import datetime
 
-authz = Authz(myconfig.USERS_FILE, myconfig.SESSION_KEY)
+authz = Authz(myconfig.USERS_FILE)
 
 logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
 bottle.debug(True)
 
 app = bottle.app()
-session_opts = {
-    'session.cookie_expires': True,
-    'session.encrypt_key': myconfig.SESSION_KEY,
-    'session.httponly': True,
-    'session.timeout': 3600 * 24,  # 1 day
-    'session.type': 'cookie',
-    'session.validate_key': True,
-}
-app = SessionMiddleware(app, session_opts)
 
-
-@bottle.get('/login')
-@bottle.view('app/views/login')
-def login():
-    """Serve login form"""
-    return {}
-	
-@bottle.post('/login')
-def login():
+@bottle.post('/notification')
+def notification():
     """Authenticate users"""
-    username = post_get('username')
-    password = post_get('password')
-    # if authenticated then redirect to "/", otherwise stay here.
+    username = post_get('username', '')
+    password = post_get('password', '')
+    
     if authz.login(username, password):
-        bottle.redirect("/")
+        message = post_get('message', '')
+        light   = post_get('light', 1)
+        sound   = post_get('sound', 1)
+        sent_at = datetime.now().strftime(myconfig.DATE_FORMAT)
+        flash   = "Notification created"
+        print(message, light, sound, sent_at, username, password)
     else:
-        bottle.redirect("/login")
+        print(username, password)
+        flash = "Invalid username or password"
+        
+    return {flash}
     
 @bottle.route('/')
-@bottle.view('app/views/home')
+@bottle.view('app/views/root')
 def index():
-    """Only authenticated users can see this"""
-    # if not authenticated, then redirect to "/login".
-    current_user = User("alex", "pwd", "admin")
-    return dict(
-        current_user = current_user,
-        notifications = []
-    )
+    """Show simple form to send a notification"""
+    return {}
 
 ## Bottle methods ##
 def postd():
