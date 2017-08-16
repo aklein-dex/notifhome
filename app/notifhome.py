@@ -26,13 +26,13 @@ def notification():
         light   = post_get('light', 1)
         sound   = post_get('sound', 1)
         sent_at = datetime.now().strftime(myconfig.DATE_FORMAT)
-        flash   = "Notification created"
-        print(message, light, sound, sent_at, username, password)
+        return_code = True
+        msg = "Notification created"
     else:
-        print(username, password)
-        flash = "Invalid username or password"
+        msg = "Invalid username or password"
+        return_code = False
         
-    return {flash}
+    return dict(ok=return_code, msg=msg)
     
 @bottle.route('/')
 @bottle.view('app/views/root')
