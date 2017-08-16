@@ -12,4 +12,4 @@ USERS_FILE="/home/alex/workspace/notifhome/config/users.authz"
 # Folder containing unread notifications.
 # In this folder, 1 file is 1 notification.
 # When a notification is read, then the file is deleted.
-NOTIF_FILE="/root/notifhome/queue"
+NOTIF_FILE="/home/alex/workspace/notifhome/queue"
