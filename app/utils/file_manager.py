@@ -1,26 +1,22 @@
 import os
 import sys
+from app.models.notification import Notification
 
 class FileManager:
     def __init__(self, folder):
         self.folder = folder
         
-    def create_notification(self, username, message, timestamp):
+    def create_file(self, notification):
         """Create a file containing the notification"""
         # Make sure all params are here
-        if not username:
-            return False
-        if not message:
-            return False
-        if not timestamp:
+        if not notification.is_valid():
             return False
 
-        # The filename is just the date
-        filename = timestamp.strftime("%Y%m%d%H%M%S")
+        filename = notification.filename()
 		
         try:
             fo = open(self.folder + "/" + filename, "w")
-            fo.write(username + ":" + message + ":" + filename)
+            fo.write(notification.username() + ":" + notification.message + ":" + filename)
             fo.close()
             return True
         except IOError as e:
@@ -32,10 +28,10 @@ class FileManager:
         
         return False
 	
-    def delete_notification(self):
+    def delete_oldest_file(self):
         """Delete the oldest file"""
         x =2
     
-    def read_notification(self):
+    def read_oldest_file(self):
         """Read the oldest file"""
         x = 2

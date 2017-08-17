@@ -21,12 +21,13 @@ def notification():
     """Authenticate users"""
     username = post_get('username', '')
     password = post_get('password', '')
+    user     = User(username, password)
     
-    if authz.login(username, password):
+    if authz.login(user):
         message = post_get('message', '')
         light   = post_get('light', 1)
         sound   = post_get('sound', 1)
-        return_code = manager.create_notification(username, message, light, sound)
+        return_code  = manager.process_notification(user, message, light, sound)
         msg = "Notification created"
     else:
         msg = "Invalid username or password"

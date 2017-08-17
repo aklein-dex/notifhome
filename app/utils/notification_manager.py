@@ -1,25 +1,28 @@
 import sys
 from datetime import datetime
 from app.utils.file_manager import FileManager
+from app.models.user import User
+from app.models.notification import Notification
 
 class NotificationManager:
     def __init__(self, folder, date_format):
         self.folder = folder
-        self.file_man = FileManager(folder)
+        # pas besoin de creer une instance file_manager
+        self.file_manager = FileManager(folder)
         self.date_format = date_format
         
-    def create_notification(self, username, message, light= 1, sound = 1):
-        # Make sure all params are here
-        if not username:
-            return False
-        if not message:
-            return False
+    def build_notification(self, user, message, light= 1, sound = 1):
+        return Notification(user, message, datetime.now(), light, sound)
         
-        timestamp = datetime.now()
-        sent_at = timestamp.strftime(self.date_format)
+
+    def process_notification(self, user, message, light= 1, sound = 1):
+        notification = self.build_notification(user, message, light, sound)
+        
+        if not notification.is_valid():
+            return False
         
         # create a file
-        if self.file_man.create_notification(username, message, timestamp):
+        if self.file_manager.create_file(notification):
             return True
         
         # write screen
