@@ -1,14 +1,12 @@
 import sys
 from config import myconfig
 from app.models.user import User
-from app.utils.authz import Authz
-from app.utils.notification_manager import NotificationManager
+from app.utils.authz import login
+from app.utils.notification_manager import process_notification
 from bottle import route, run, template
 import bottle
 import logging
 
-authz = Authz(myconfig.USERS_FILE)
-manager = NotificationManager(myconfig.NOTIF_FILE, myconfig.DATE_FORMAT)
 
 logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
@@ -23,11 +21,11 @@ def notification():
     password = post_get('password', '')
     user     = User(username, password)
     
-    if authz.login(user):
+    if login(user):
         message = post_get('message', '')
         light   = post_get('light', 1)
         sound   = post_get('sound', 1)
-        return_code  = manager.process_notification(user, message, light, sound)
+        return_code  = process_notification(user, message, light, sound)
         msg = "Notification created"
     else:
         msg = "Invalid username or password"
