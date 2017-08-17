@@ -31,7 +31,9 @@ log in to the server and disable the notification.
 
 ### Instructions
 
-#### Install git (optional)
+#### Source code
+
+##### Install git (optional)
 
 Git takes 6.8M of disk space. You may want to clone this repo on your PC and transfer
 the files (scp) if you don't want to install git.
@@ -42,6 +44,8 @@ $ opkg install git git-http ca-bundle
 $ git --version
 git version 2.11.0
 ```
+##### Transfer the file
+
 
 #### Install python 3
 
@@ -52,31 +56,11 @@ $ opkg update
 $ opkg install python3-light
 ```
 
-#### Install bottle
+#### Setup
 
-TODO: just download bottle, and dont use pip to save space.
+##### Config
 
-
-[Bottle](https://bottlepy.org/docs/dev/) is a fast, simple and lightweight WSGI micro web-framework.
-
-It will take 0.2M.
-
-You can use pip (7.4M of disk space) or download the file directly from github [here](https://github.com/bottlepy/bottle/raw/master/bottle.py).
-
-```
-$ opkg install python3-pip
-# when using pip you may encounter a small configuration issue with the setuptools module and can be easily fixed:
-$ pip3 install --upgrade setuptools
-
-$ pip3 install bottle
-```
-
-I wanted to use [Cork](http://cork.firelet.net/) for authentication and authorization but to install it
-it needs to compile some C code. Installing a C compiler on the Omega is not that easy, so instead
-I'll handle authentication and authorization by myself.
-I wanted to use [Beaker](https://github.com/bottlepy/bottle-beaker), a library for is session and caching with WSGI Middleware
-but it doesn't seem to work.
-
+##### Users
 
 #### Run the server
 
@@ -84,7 +68,7 @@ Simply run the command:
 ```
 $ python startup.py
 ```
-Open your browser to http://localhost:9090/. The default login/pwd is admin/admin.
+Open your browser to http://localhost:9090/.
 
 
 ### Future version

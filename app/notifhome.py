@@ -3,18 +3,14 @@ from config import myconfig
 from app.models.user import User
 from app.utils.authz import login
 from app.utils.notification_manager import process_notification
-from bottle import route, run, template
-import bottle
+from app.bottle import run, get, post, view, static_file, request
 import logging
-
 
 logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
-bottle.debug(True)
 
-app = bottle.app()
 
-@bottle.post('/notification')
+@post('/notification')
 def notification():
     """Receive a notification"""
     username = post_get('username', '')
@@ -33,26 +29,26 @@ def notification():
         
     return dict(ok=return_code, msg=msg)
     
-@bottle.route('/')
-@bottle.view('app/views/root')
+@get('/')
+@view('app/views/root')
 def index():
     """Show simple form to send a notification"""
     return {}
 
 # Static Routes
-@bottle.get("/public/<filepath:re:.*\.js>")
+@get("/public/<filepath:re:.*\.js>")
 def js(filepath):
-    return bottle.static_file(filepath, root="public")
+    return static_file(filepath, root="public")
     
 ## Bottle methods ##
 def postd():
-    return bottle.request.forms
+    return request.forms
 
 def post_get(name, default=''):
-    return bottle.request.POST.get(name, default).strip()
+    return request.POST.get(name, default).strip()
 
 ###### Web application main ######
 def start_server():
     # Start the Bottle webapp
-    bottle.run(app=app, port=myconfig.PORT, quiet=False, reloader=False)
+    run(port=myconfig.PORT, quiet=False, reloader=False)
 
