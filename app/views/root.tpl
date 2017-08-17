@@ -37,7 +37,7 @@
     
     <br>
     
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="public/jquery.min.js"></script>
     <script>
         // Prevent form submission, send POST asynchronously and parse returned JSON
         $('form').submit(function() {

@@ -39,6 +39,11 @@ def index():
     """Show simple form to send a notification"""
     return {}
 
+# Static Routes
+@bottle.get("/public/<filepath:re:.*\.js>")
+def js(filepath):
+    return bottle.static_file(filepath, root="public")
+    
 ## Bottle methods ##
 def postd():
     return bottle.request.forms
