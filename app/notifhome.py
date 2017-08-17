@@ -16,7 +16,7 @@ app = bottle.app()
 
 @bottle.post('/notification')
 def notification():
-    """Authenticate users"""
+    """Receive a notification"""
     username = post_get('username', '')
     password = post_get('password', '')
     user     = User(username, password)

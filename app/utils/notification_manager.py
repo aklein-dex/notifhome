@@ -5,12 +5,8 @@ from app.models.user import User
 from app.models.notification import Notification
 
 
-def build_notification(user, message, light= 1, sound = 1):
-    return Notification(user, message, datetime.now(), light, sound)
-    
-
 def process_notification(user, message, light= 1, sound = 1):
-    notification = build_notification(user, message, light, sound)
+    notification = Notification(user, message, datetime.now(), light, sound)
     
     if not notification.is_valid():
         return False
@@ -20,7 +16,7 @@ def process_notification(user, message, light= 1, sound = 1):
         return True
     
     # do a check if we are on the Omega2 or on a "real" computer
-    # write screen
+    # write on OLED screen
     
     # make sound
     

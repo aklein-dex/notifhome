@@ -1,7 +1,7 @@
 from app.models.user import User
 
 class Notification:
-    """A simple user class"""
+    """A simple Notification class"""
     def __init__(self, user, message, sent_at, light = 1, sound = 1):
         self.user    = user
         self.message = message
