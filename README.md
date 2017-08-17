@@ -35,8 +35,7 @@ log in to the server and disable the notification.
 
 ##### Install git (optional)
 
-Git takes 6.8M of disk space. You may want to clone this repo on your PC and transfer
-the files (scp) if you don't want to install git.
+Git takes 6.8M of disk space. 
 
 ```
 $ opkg update
@@ -46,6 +45,8 @@ git version 2.11.0
 ```
 ##### Transfer the file
 
+You may want to clone this repo on your PC and transfer
+the files (scp) if you don't want to install git.
 
 #### Install python 3
 
@@ -60,7 +61,11 @@ $ opkg install python3-light
 
 ##### Config
 
+Open the file config/myconfig.py and set the approriate values depending of your system.
+
 ##### Users
+
+Edit the file config/users.authz to add users. The format is <username>:<password>.
 
 #### Run the server
 

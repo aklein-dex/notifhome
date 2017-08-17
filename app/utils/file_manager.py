@@ -3,7 +3,7 @@ import sys
 from app.models.notification import Notification
 from config import myconfig
 
-FOLDER = myconfig.NOTIF_FILE
+FOLDER = myconfig.QUEUE_FOLDER
 
 def create_file(notification):
     """Create a file containing the notification"""
