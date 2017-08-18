@@ -22,7 +22,10 @@ def notification():
         light   = post_get('light', 1)
         sound   = post_get('sound', 1)
         return_code  = process_notification(user, message, light, sound)
-        msg = "Notification created"
+        if return_code:
+            msg = "Notification created"
+        else:
+            msg = "Problem while creating notification"
     else:
         msg = "Invalid username or password"
         return_code = False
