@@ -11,11 +11,11 @@ def login(user):
 
     with open(USERS_FILE, 'r') as file:
         for line in file:
-            split = line.split(":")
+            split = line.rstrip().split(":")
             
             if len(split) < 2:
                 continue
-                
+
             if user.matches(split[0], split[1]):
                 return True
     return False
