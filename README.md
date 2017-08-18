@@ -48,13 +48,13 @@ git version 2.11.0
 You may want to clone this repo on your PC and transfer
 the files (scp) if you don't want to install git.
 
-#### Install python 3
+#### Install python
 
 It will take 3.4M of disk space.
 
 ```
 $ opkg update
-$ opkg install python3-light
+$ opkg install python-light pyOledExp
 ```
 
 #### Setup
