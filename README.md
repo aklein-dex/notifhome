@@ -57,6 +57,8 @@ $ opkg update
 $ opkg install python-light pyOledExp
 ```
 
+Note: we are using python 2.7 because of pyOledExp.
+
 #### Setup
 
 ##### Config
