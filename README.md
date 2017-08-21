@@ -50,11 +50,11 @@ the files (scp) if you don't want to install git.
 
 #### Install python
 
-It will take 3.4M of disk space.
+It will take 7.7M of disk space.
 
 ```
 $ opkg update
-$ opkg install python-light pyOledExp
+$ opkg install python-light python-email python-logging python-codecs python-openssl pyOledExp 
 ```
 
 Note: we are using python 2.7 because of pyOledExp.
