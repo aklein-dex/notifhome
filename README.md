@@ -63,11 +63,11 @@ Note: we are using python 2.7 because of pyOledExp.
 
 ##### Config
 
-Open the file config/myconfig.py and set the approriate values depending of your system.
+Default values are in `config/myconfig.py` but do not modify this file. Instead, create another file `config/myconfig.local` to override the default values.
 
 ##### Users
 
-Edit the file config/users.authz to add users. The format is <username>:<password>.
+Edit the file `config/users.authz` to add users. The format is <username>:<password>.
 
 #### Run the server
 

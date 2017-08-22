@@ -53,5 +53,5 @@ def post_get(name, default=''):
 ###### Web application main ######
 def start_server():
     # Start the Bottle webapp
-    run(port=myconfig.PORT, quiet=False, reloader=False)
+    run(host=myconfig.HOST, port=myconfig.PORT, quiet=False, reloader=False)
 

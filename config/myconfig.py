@@ -1,13 +1,55 @@
-# Port to run the server
-PORT=9090
+import os.path
 
+# DO NOT MODIFY THIS FILE!
+# If you want to change default values, then create a file "config/myconfig.local"
+# to override the default values.
+
+LOCAL_CONFIG="config/myconfig.local"
+
+if os.path.isfile(LOCAL_CONFIG):
+    with open(LOCAL_CONFIG, "r") as lines:
+        array = []
+        for line in lines:
+            split = line.split("=")
+            if split[0] == "PORT":
+                PORT = split[1]
+            elif split[0] == "HOST":
+                HOST = split[1]
+            elif split[0] == "DATE_FORMAT":
+                DATE_FORMAT = split[1]
+            elif split[0] == "USERS_FILE":
+                USERS_FILE = split[1]
+            elif split[0] == "QUEUE_FOLDER":
+                QUEUE_FOLDER = split[1]
+
+# Port to run the server
+try:
+    PORT
+except NameError:
+    PORT=9090
+
+# Host to run the server
+try:
+    HOST
+except NameError:
+    HOST='0.0.0.0'
+    
 # Format use to display the date on the screen
-DATE_FORMAT="%Y-%m-%d %H:%M:%S"
+try:
+    DATE_FORMAT
+except NameError:    
+    DATE_FORMAT="%b %d, %H:%M"
 
 # File containing the list of users
-USERS_FILE="/home/alex/workspace/notifhome/config/users.authz"
+try:
+    USERS_FILE
+except NameError:
+    USERS_FILE="config/users.authz"
 
 # Folder containing unread notifications.
 # In this folder, 1 file is 1 notification.
 # When a notification is read, then the file is deleted.
-QUEUE_FOLDER="/home/alex/workspace/notifhome/queue"
+try:
+    QUEUE_FOLDER
+except NameError:
+    QUEUE_FOLDER="queue"
