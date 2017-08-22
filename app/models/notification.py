@@ -13,6 +13,7 @@ class Notification:
         return self.user.username
         
     def is_valid(self):
+        """Check if the attributes are valid"""
         if self.user.is_valid() and self.message and self.sent_at:
             return True
         return False
@@ -20,3 +21,7 @@ class Notification:
     def filename(self):
         """The filename is just the date"""
         return self.sent_at.strftime("%Y%m%d%H%M%S")
+
+    def sent_at_formated(self, date_format):
+        """Return the date the notification was sent to a specified format"""
+        return self.sent_at.strftime(date_format)
