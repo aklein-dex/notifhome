@@ -10,11 +10,16 @@ DATE_FORMAT = myconfig.DATE_FORMAT
 #   If the function operation is not successful, the function will return 1.
 
 # a line is 21 characters long
+LINE_LENGTH = 21
 
 is_init = False
 
 def init_screen():
     is_init = not oledExp.driverInit()
+    if is_init:
+        # show a welcome sign for 2 sec, create thread?
+        x = 2
+    return is_init
     
     
 def print_screen(notification):
@@ -27,6 +32,7 @@ def print_screen(notification):
         return False
 
     
+    # TODO: set the cursor at the correct position
     status = oledExp.write(getHeader(notification));
     status = oledExp.write(notification.message);
     
@@ -34,6 +40,12 @@ def print_screen(notification):
 
 
 def getHeader(notification):
-    """Format the header"""
-    return notification.username() + " " + notification.sent_at_formated(DATE_FORMAT) + "\n--------------"
+    """Format the header. It will look like that:
+       admin   Dec 12, 12:00
+       ---------------------
+    """
+    # Count the number of spaces between the username and the date.
+    spaces = LINE_LENGTH - len(notification.username) - len(DATE_FORMAT)
+    # TODO: if spaces is negative, then should abreviate the name
+    return notification.username() + spaces*" " + notification.sent_at_formated(DATE_FORMAT) + "\n" + LINE_LENGTH*"-"
 
