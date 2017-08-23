@@ -22,6 +22,7 @@ def process_notification(user, message, light= 1, sound = 1):
     # create all type of notifications
     if create_file(notification):
         
+        # TODO`if there is no other notification then print on screen
         if is_omega2:
             # write on OLED screen
             print_screen(notification)
@@ -39,4 +40,4 @@ def init_hardware():
         init_screen()
         # init_sound
         # init_light
-    
+

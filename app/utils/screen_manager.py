@@ -15,6 +15,7 @@ LINE_LENGTH = 21
 is_init = False
 
 def init_screen():
+    global is_init
     is_init = not oledExp.driverInit()
     if is_init:
         # show a welcome sign for 2 sec, create thread?
@@ -24,7 +25,7 @@ def init_screen():
     
 def print_screen(notification):
     """Print notification on the screen"""
-    
+
     if not is_init:
         return False
     
@@ -45,7 +46,7 @@ def getHeader(notification):
        ---------------------
     """
     # Count the number of spaces between the username and the date.
-    spaces = LINE_LENGTH - len(notification.username) - len(DATE_FORMAT)
+    spaces = LINE_LENGTH - len(notification.username()) - 13
     # TODO: if spaces is negative, then should abreviate the name
     return notification.username() + spaces*" " + notification.sent_at_formated(DATE_FORMAT) + "\n" + LINE_LENGTH*"-"
 
