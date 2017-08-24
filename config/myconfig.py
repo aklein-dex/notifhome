@@ -22,6 +22,11 @@ if os.path.isfile(LOCAL_CONFIG):
             elif split[0] == "QUEUE_FOLDER":
                 QUEUE_FOLDER = split[1]
 
+try:
+    LOGFILE
+except NameError:
+    LOGFILE = "notifhome.log"
+
 # Port to run the server
 try:
     PORT
