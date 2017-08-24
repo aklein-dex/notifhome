@@ -48,8 +48,10 @@ def getHeader(notification):
        admin   Dec 12, 12:00
        ---------------------
     """
-    # Count the number of spaces between the username and the date.
-    spaces = LINE_LENGTH - len(notification.username()) - len(notification.sent_at_formated(DATE_FORMAT))
+    # spaces is the number of space between the username and the date.
+    spaces = LINE_LENGTH - len(notification.sent_at_formated(DATE_FORMAT))
+    short_username = notification.short_username(spaces - 1)
+    spaces = spaces - len(short_username)
     # TODO: if spaces is negative, then should abreviate the name
-    return notification.username() + spaces*" " + notification.sent_at_formated(DATE_FORMAT) + "\n" + LINE_LENGTH*"-"
+    return short_username + spaces*" " + notification.sent_at_formated(DATE_FORMAT) + "\n" + LINE_LENGTH*"-"
 

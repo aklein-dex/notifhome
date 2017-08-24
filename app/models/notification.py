@@ -12,6 +12,12 @@ class Notification:
     def username(self):
         return self.user.username
         
+    def short_username(self, max_size):
+        if len(self.user.username) > max_size:
+            return self.user.username[0:max_size-1]
+        else:
+            return self.user.username
+        
     def is_valid(self):
         """Check if the attributes are valid"""
         if self.user.is_valid() and self.message and self.sent_at:
