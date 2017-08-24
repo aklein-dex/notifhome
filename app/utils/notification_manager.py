@@ -22,10 +22,11 @@ def process_notification(user, message, light= 1, sound = 1):
     # create all type of notifications
     if create_file(notification):
         
-        # TODO`if there is no other notification then print on screen
         if is_omega2:
-            # write on OLED screen
-            print_screen(notification)
+            # Print on screen only if this is the first notification
+            if count_files() == 1:
+                print_screen(notification)
+            
             # make sound
         
             # turn on light

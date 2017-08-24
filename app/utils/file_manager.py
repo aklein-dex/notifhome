@@ -27,6 +27,10 @@ def create_file(notification):
     
     return False
 
+def count_files():
+    """ Count the number of files in the queue folder excluding files starting with "." """
+    return len([f for f in os.listdir(FOLDER) if os.path.isfile(os.path.join(FOLDER, f)) and f[0] != '.'])
+    
 def delete_oldest_file(self):
     """Delete the oldest file"""
     x =2

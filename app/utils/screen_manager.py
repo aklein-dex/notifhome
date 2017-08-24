@@ -20,6 +20,9 @@ def init_screen():
     if is_init:
         # show a welcome sign for 2 sec, create thread?
         x = 2
+    else:
+        print "Problem initializing screen"
+    
     return is_init
     
     
@@ -46,7 +49,7 @@ def getHeader(notification):
        ---------------------
     """
     # Count the number of spaces between the username and the date.
-    spaces = LINE_LENGTH - len(notification.username()) - 13
+    spaces = LINE_LENGTH - len(notification.username()) - len(notification.sent_at_formated(DATE_FORMAT))
     # TODO: if spaces is negative, then should abreviate the name
     return notification.username() + spaces*" " + notification.sent_at_formated(DATE_FORMAT) + "\n" + LINE_LENGTH*"-"
 
