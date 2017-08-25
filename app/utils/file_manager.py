@@ -33,7 +33,9 @@ def count_files():
     
 def delete_oldest_file():
     """Delete the oldest file"""
-    x =2
+    if count_files() > 0:
+        x =2
+        # rm file
 
 def read_oldest_file():
     """Read the oldest file"""

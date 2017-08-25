@@ -2,7 +2,7 @@ import sys
 import platform
 import logging
 from datetime import datetime
-from app.utils.file_manager import create_file
+from app.utils.file_manager import create_file, read_oldest_file, delete_oldest_file
 from app.models.user import User
 from app.models.notification import Notification
 import logging
@@ -43,18 +43,21 @@ def process_notification(user, message, light= 1, sound = 1):
     
     return success
 
-def aknowledge_notification():
-    if count_files() > 0:
-        delete_oldest_file()
+def read_notification():
+    notification = read_oldest_file()
+    return notification
+    
+def delete_notification():
+    delete_oldest_file()
+    if is_omega2:
         #clear screen
+        x = 2
         
-        if count_files() > 0:
-            # print on the screen the oldest following notif
-            x = 2
-    
-    
-    
-    
+    # print on the screen the oldest following notif
+    notification = read_oldest_file()
+    if is_omega2:
+        print_screen(notification)
+
 def init_hardware():
     initialized = True
     

@@ -7,17 +7,15 @@
 <div id='main'>
     <h1>Notifhome</h1>
     
-    <div id='form_notif'>
+    <div id='status' style='display: none;'><p></p></div>
+    
+    <input id="username" type="text" name="username" placeholder="username"/>
+
+    <input id="password" type="password" name="password" placeholder="password"/>
+
+    <div id='form_create_notif'>
         <h3>Send notification</h3>
-        <form action="notification" method="post">
-            <p>
-                <label>Username</label>
-                <input type="text" name="username" placeholder="username"/>
-            </p>
-            <p>
-                <label>Password</label> 
-                <input type="password" name="password" placeholder="password"/>
-            </p>
+        <form id="form_create" action="notification" method="post">
             <p>
                 <label>Message</label> 
                 <input type="text" name="message" />
@@ -32,7 +30,21 @@
             </p>
             <button type="submit" >Send</button>
         </form>
-        <div id='status' style='display: none;'><p></p></div>
+        
+    </div>
+    
+    <div id='form_view_notif'>
+        <h3>View notification</h3>
+        <form id="form_view" action="view" method="get">
+            <button type="submit" >View</button>
+        </form>
+    </div>
+    
+    <div id='form_delete_notif'>
+        <h3>Delete notification</h3>
+        <form id="form_delete" action="delete" method="post">
+            <button type="submit" >Delete</button>
+        </form>
     </div>
     
     <br>
@@ -40,9 +52,8 @@
     <script src="public/jquery.min.js"></script>
     <script>
         // Prevent form submission, send POST asynchronously and parse returned JSON
-        $('form').submit(function() {
+        $('#form_create').submit(function() {
             $("div#status").fadeIn(100);
-            z = $(this);
             $.post($(this).attr('action'), $(this).serialize(), function(j) {
               if (j.ok) {
                 $("div#status").css("background-color", "#f0fff0");
@@ -52,6 +63,36 @@
               $("div#status p").text(j.msg);
               $("div#status").delay(5000).fadeOut(500);
             }, "json");
+            return false;
+        });
+        
+        $('#form_view').submit(function() {
+            $("div#status").fadeIn(100);
+            $.get($(this).attr('action'), $(this).serialize(), function(j) {
+              if (j.ok) {
+                $("div#status").css("background-color", "#f0fff0");
+              } else {
+                $("div#status").css("background-color", "#fff0f0");
+              }
+              $("div#status p").text(j.msg);
+              $("div#status").delay(5000).fadeOut(500);
+            }, "json");
+            return false;
+        });
+        
+        $('#form_delete').submit(function() {
+            if(confirm('Are you sure?')) {
+                $("div#status").fadeIn(100);
+                $.post($(this).attr('action'), $(this).serialize(), function(j) {
+                  if (j.ok) {
+                    $("div#status").css("background-color", "#f0fff0");
+                  } else {
+                    $("div#status").css("background-color", "#fff0f0");
+                  }
+                  $("div#status p").text(j.msg);
+                  $("div#status").delay(5000).fadeOut(500);
+                }, "json");
+            }
             return false;
         });
     </script>
