@@ -57,10 +57,14 @@
     
     <script src="public/jquery.min.js"></script>
     <script>
+        function login() {
+            return $('#username').serialize() + "&" + $('#password').serialize();
+        }
+        
         // Prevent form submission, send POST asynchronously and parse returned JSON
         $('#form_create').submit(function() {
             $("div#status_send").fadeIn(100);
-            $.post($(this).attr('action'), $(this).serialize(), function(j) {
+            $.post($(this).attr('action'), $(this).serialize() + "&" + login(), function(j) {
               if (j.ok) {
                 $("div#status_send").css("background-color", "#f0fff0");
               } else {
@@ -74,7 +78,7 @@
         
         $('#form_view').submit(function() {
             $("div#status_view").fadeIn(100);
-            $.get($(this).attr('action'), $(this).serialize(), function(j) {
+            $.get($(this).attr('action'),  login(), function(j) {
               if (j.ok) {
                 $("div#status_view").css("background-color", "#f0fff0");
               } else {
@@ -89,7 +93,7 @@
         $('#form_delete').submit(function() {
             if(confirm('Are you sure?')) {
                 $("div#status_delete").fadeIn(100);
-                $.post($(this).attr('action'), $(this).serialize(), function(j) {
+                $.post($(this).attr('action'),  login(), function(j) {
                   if (j.ok) {
                     $("div#status_delete").css("background-color", "#f0fff0");
                   } else {
