@@ -61,56 +61,55 @@
             return $('#username').serialize() + "&" + $('#password').serialize();
         }
         
-        // Prevent form submission, send POST asynchronously and parse returned JSON
+        function showResult(status, message, fieldId) {
+            $("div#" + fieldId).css("background-color", "#f0fff0");
+            if (status) {
+                $("div#" + fieldId).css("background-color", "#f0fff0");
+            } else {
+                $("div#" + fieldId).css("background-color", "#fff0f0");
+            }
+            $("div#" + fieldId + " p").text(message);
+            $("div#" + fieldId).delay(5000).fadeOut(500);
+        }
+        
+        function sendAjaxRequest(action, params, divId) {
+            $("div#" + divId).fadeIn(100);
+            $.ajax({
+                url: '/notification',
+                type: action,
+                data: params,
+                success: function(result) {
+                    showResult(result.ok, result.msg, divId);
+                 },
+                 error: function(result) {
+                     showResult(false, "Error", divId);
+                 }
+            });
+        }
+        
         $('#form_create').submit(function() {
-            $("div#status_send").fadeIn(100);
-            $.post($(this).attr('action'), $(this).serialize() + "&" + login(), function(j) {
-              if (j.ok) {
-                $("div#status_send").css("background-color", "#f0fff0");
-              } else {
-                $("div#status_send").css("background-color", "#fff0f0");
-              }
-              $("div#status_send p").text(j.msg);
-              $("div#status_send").delay(5000).fadeOut(500);
-            }, "json");
+            divId = "status_send";
+            $("div#" + divId).fadeIn(100);
+            sendAjaxRequest("POST", $(this).serialize() + "&" + login(), divId);
             return false;
         });
         
         $('#form_view').submit(function() {
-            $("div#status_view").fadeIn(100);
-            $.get($(this).attr('action'),  login(), function(j) {
-              if (j.ok) {
-                $("div#status_view").css("background-color", "#f0fff0");
-              } else {
-                $("div#status_view").css("background-color", "#fff0f0");
-              }
-              $("div#status_view p").text(j.msg);
-              $("div#status_view").delay(5000).fadeOut(500);
-            }, "json");
+            divId = "status_view";
+            $("div#" + divId).fadeIn(100);
+            sendAjaxRequest("GET", login(), divId);
             return false;
         });
         
         $('#form_delete').submit(function() {
             if(confirm('Are you sure?')) {
-                $("div#status_delete").fadeIn(100);
-                $.ajax({
-                    url: '/delete',
-                    type: 'DELETE',
-                    data: login(),
-                    success: function(result) {
-                        $("div#status_delete").css("background-color", "#f0fff0");
-                        if (result.ok) {
-                            $("div#status_delete").css("background-color", "#f0fff0");
-                        } else {
-                            $("div#status_delete").css("background-color", "#fff0f0");
-                        }
-                        $("div#status_delete p").text(result.msg);
-                        $("div#status_delete").delay(5000).fadeOut(500);
-                     }
-                });
+                divId = "status_delete";
+                $("div#" + divId).fadeIn(100);
+                sendAjaxRequest("DELETE", login(), divId);
             }
             return false;
         });
+        
     </script>
 </div>
 <style>

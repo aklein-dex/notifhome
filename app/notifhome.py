@@ -14,9 +14,9 @@ def action_create():
     
     if login(user):
         logging.info('Login success: %s', user.username)
-        message = post_get('message', '')
-        light   = post_get('light', 1)
-        sound   = post_get('sound', 1)
+        message = post_param('message', '')
+        light   = post_param('light', 1)
+        sound   = post_param('sound', 1)
         return_code  = process_notification(user, message, light, sound)
         if return_code:
             msg = "Notification created"
@@ -35,26 +35,26 @@ def action_index():
     """Show simple form to send a notification"""
     return {}
 
-@get('/view')
+@get('/notification')
 def action_show():
     """View the oldest notification """
     user = getUser()
     
     if login(user):
         notification = read_notification()
-        return dict(ok=True, msg=notification)
+        return dict(ok=True, msg=notification.message)
     else:
         logging.info('Login failed')
         msg = "Invalid username or password"
         return dict(ok=False, msg=msg)
 
-@delete('/delete')
+@delete('/notification')
 def action_delete():
     """Delete the oldest notification"""
     user = getUser()
     
     if login(user):
-        delete_notification()
+        #delete_notification()
         return dict(ok=True, msg="Done")
     else:
         logging.info('Login failed')
@@ -67,18 +67,23 @@ def js(filepath):
     return static_file(filepath, root="public")
 
 def getUser():
-    username = post_get('username', '')
-    password = post_get('password', '')
+    username = post_param('username', '')
+    if username == '':
+        username = get_param('username', '')
+        password = get_param('password', '')
+    else:
+        password = post_param('password', '')
+    
     return User(username, password)
     
 ## Bottle methods ##
 def postd():
     return request.forms
 
-def post_get(name, default=''):
+def post_param(name, default=''):
     return request.POST.get(name, default).strip()
     
-def get_get(name, default=''):
+def get_param(name, default=''):
     return request.GET.get(name, default).strip()
 
 ###### Web application main ######
