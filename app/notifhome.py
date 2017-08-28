@@ -8,7 +8,7 @@ import logging
 
 
 @post('/notification')
-def notification():
+def action_create():
     """Receive a notification"""
     user = getUser()
     
@@ -31,12 +31,12 @@ def notification():
     
 @get('/')
 @view('app/views/root')
-def index():
+def action_index():
     """Show simple form to send a notification"""
     return {}
 
 @get('/view')
-def view():
+def action_show():
     """View the oldest notification """
     user = getUser()
     
@@ -48,14 +48,14 @@ def view():
         msg = "Invalid username or password"
         return dict(ok=False, msg=msg)
 
-@post('/delete')
-def delete():
+@delete('/delete')
+def action_delete():
     """Delete the oldest notification"""
     user = getUser()
     
     if login(user):
         delete_notification()
-        return "Done."
+        return dict(ok=True, msg="Done")
     else:
         logging.info('Login failed')
         msg = "Invalid username or password"
@@ -77,6 +77,9 @@ def postd():
 
 def post_get(name, default=''):
     return request.POST.get(name, default).strip()
+    
+def get_get(name, default=''):
+    return request.GET.get(name, default).strip()
 
 ###### Web application main ######
 def start_server():

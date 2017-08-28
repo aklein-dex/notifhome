@@ -93,15 +93,21 @@
         $('#form_delete').submit(function() {
             if(confirm('Are you sure?')) {
                 $("div#status_delete").fadeIn(100);
-                $.post($(this).attr('action'),  login(), function(j) {
-                  if (j.ok) {
-                    $("div#status_delete").css("background-color", "#f0fff0");
-                  } else {
-                    $("div#status_delete").css("background-color", "#fff0f0");
-                  }
-                  $("div#status_delete p").text(j.msg);
-                  $("div#status_delete").delay(5000).fadeOut(500);
-                }, "json");
+                $.ajax({
+                    url: '/delete',
+                    type: 'DELETE',
+                    data: login(),
+                    success: function(result) {
+                        $("div#status_delete").css("background-color", "#f0fff0");
+                        if (result.ok) {
+                            $("div#status_delete").css("background-color", "#f0fff0");
+                        } else {
+                            $("div#status_delete").css("background-color", "#fff0f0");
+                        }
+                        $("div#status_delete p").text(result.msg);
+                        $("div#status_delete").delay(5000).fadeOut(500);
+                     }
+                });
             }
             return false;
         });
