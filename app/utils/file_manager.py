@@ -15,7 +15,7 @@ def create_file(notification):
     
     try:
         fo = open(FOLDER + "/" + filename, "w")
-        fo.write(notification.username() + ":" + notification.message + ":" + filename)
+        fo.write(notification.to_json())
         fo.close()
         return True
     except IOError as e:
@@ -38,5 +38,8 @@ def delete_oldest_file():
         # rm file
 
 def read_oldest_file():
-    """Read the oldest file"""
-    x = 2
+    """Read the oldest file and return a notification"""
+    files = sorted(os.listdir(FOLDER), key=os.path.getctime)
+    oldest = files[0]
+    
+

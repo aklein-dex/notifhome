@@ -18,7 +18,7 @@ else:
 
 def process_notification(user, message, light= 1, sound = 1):
     success = False
-    notification = Notification(user, message, datetime.now(), light, sound)
+    notification = Notification(user.username, message, datetime.now(), light, sound)
     
     if not notification.is_valid():
         return False
