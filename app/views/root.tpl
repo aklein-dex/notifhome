@@ -87,7 +87,7 @@
                 data: params,
                 success: function(result) {
                     showStatus(result.ok, result.msg, divId);
-                    if (divId == "status_view") {
+                    if (divId == "status_view" && result.notification != null) {
                         showNotification(result.notification);
                     }
                  },

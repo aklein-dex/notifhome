@@ -42,7 +42,10 @@ def action_show():
     
     if login(user):
         notification = read_notification()
-        return dict(ok=True, msg="ok", notification=notification.to_json())
+        if notification is not None:
+            return dict(ok=True, msg="ok", notification=notification.to_json())
+        else:
+            return dict(ok=True, msg="No notification")
     else:
         logging.info('Login failed')
         msg = "Invalid username or password"
@@ -54,8 +57,11 @@ def action_delete():
     user = getUser()
     
     if login(user):
-        #delete_notification()
-        return dict(ok=True, msg="Done")
+        deleted = delete_notification()
+        if deleted:
+            return dict(ok=True, msg="Done")
+        else:
+            return dict(ok=True, msg="Nothing to delete")
     else:
         logging.info('Login failed')
         msg = "Invalid username or password"

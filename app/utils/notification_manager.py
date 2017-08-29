@@ -48,15 +48,14 @@ def read_notification():
     return notification
     
 def delete_notification():
-    delete_oldest_file()
+    deleted = delete_oldest_file()
     if is_omega2:
-        #clear screen
-        x = 2
-        
-    # print on the screen the oldest following notif
-    notification = read_oldest_file()
-    if is_omega2:
-        print_screen(notification)
+        #TODO clear screen
+        # print on the screen the oldest following notif
+        notification = read_oldest_file()
+        if notification:
+            print_screen(notification)
+    return deleted
 
 def init_hardware():
     initialized = True

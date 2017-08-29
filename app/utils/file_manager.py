@@ -33,26 +33,30 @@ def count_files():
     
 def delete_oldest_file():
     """Delete the oldest file"""
-    if count_files() > 0:
-        x =2
-        # rm file
+    filelist = [os.path.join(FOLDER, f) for f in os.listdir(FOLDER) if os.path.isfile(os.path.join(FOLDER, f)) and f[0] != '.']
+    if len(filelist) > 0:
+        oldest = min(filelist, key=lambda x: os.stat(x).st_mtime)
+        os.remove(oldest)
+        return True
+    return False
 
 def read_oldest_file():
     """Read the oldest file and return a notification"""
     filelist = [os.path.join(FOLDER, f) for f in os.listdir(FOLDER) if os.path.isfile(os.path.join(FOLDER, f)) and f[0] != '.']
-    oldest = min(filelist, key=lambda x: os.stat(x).st_mtime)
+    if len(filelist) > 0:
+        oldest = min(filelist, key=lambda x: os.stat(x).st_mtime)
 
-    try:
-        with open(oldest) as oldest_file:
-            notification = Notification.from_json(oldest_file.read())
-            return notification
-            
-        return True
-    except IOError as e:
-        errno, strerror = e.args
-        print("I/O error({0}): {1}".format(errno,strerror))
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-        raise
-    
+        try:
+            with open(oldest) as oldest_file:
+                notification = Notification.from_json(oldest_file.read())
+                return notification
+                
+        except IOError as e:
+            errno, strerror = e.args
+            print("I/O error({0}): {1}".format(errno,strerror))
+            return None
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            return None
+    return None
 
