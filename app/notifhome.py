@@ -42,7 +42,7 @@ def action_show():
     
     if login(user):
         notification = read_notification()
-        return dict(ok=True, msg=notification.message)
+        return dict(ok=True, msg="ok", notification=notification.to_json())
     else:
         logging.info('Login failed')
         msg = "Invalid username or password"

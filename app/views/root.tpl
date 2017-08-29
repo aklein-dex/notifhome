@@ -61,7 +61,7 @@
             return $('#username').serialize() + "&" + $('#password').serialize();
         }
         
-        function showResult(status, message, divId) {
+        function showStatus(status, message, divId) {
             $("div#" + divId).css("background-color", "#f0fff0");
             if (status) {
                 $("div#" + divId).css("background-color", "#f0fff0");
@@ -72,6 +72,11 @@
             $("div#" + divId).delay(5000).fadeOut(500);
         }
         
+        function showNotification(notification) {
+            jsonNotif = JSON.parse(notification);
+            $("#current_notification").text(jsonNotif.username + " " + jsonNotif.sent_at + "\n" + jsonNotif.message);
+        }
+        
         function sendAjaxRequest(action, params, divId) {
             $("div#" + divId).fadeIn(100);
             $.ajax({
@@ -79,10 +84,13 @@
                 type: action,
                 data: params,
                 success: function(result) {
-                    showResult(result.ok, result.msg, divId);
+                    showStatus(result.ok, result.msg, divId);
+                    if (divId == "status_view") {
+                        showNotification(result.notification);
+                    }
                  },
                  error: function(result) {
-                     showResult(false, "Error", divId);
+                     showStatus(false, "Error", divId);
                  }
             });
         }
