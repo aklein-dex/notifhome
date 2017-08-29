@@ -30,8 +30,8 @@ class Notification:
         return self.sent_at.strftime(date_format)
     
     def to_json(self):
-        return json.dumps(self.__dict__)
-    
+        return json.dumps(self.__dict__, default=str)
+                
     @classmethod
     def from_json(cls, json_str):
         json_dict = json.loads(json_str)

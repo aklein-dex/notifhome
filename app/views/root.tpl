@@ -28,7 +28,7 @@
                 <input type="radio" name="sound" value="1" checked/> On <input type="radio" name="sound" value="0"/> Off
             </p>
             <button type="submit" style="background-color: #8bc34a">Send</button>
-            <div id='status_send' class="status" style='display: none;'><p></p></div>
+            <div id='status_create' class="status" style='display: none;'><p></p></div>
         </form>
         
     </div>
@@ -61,15 +61,15 @@
             return $('#username').serialize() + "&" + $('#password').serialize();
         }
         
-        function showResult(status, message, fieldId) {
-            $("div#" + fieldId).css("background-color", "#f0fff0");
+        function showResult(status, message, divId) {
+            $("div#" + divId).css("background-color", "#f0fff0");
             if (status) {
-                $("div#" + fieldId).css("background-color", "#f0fff0");
+                $("div#" + divId).css("background-color", "#f0fff0");
             } else {
-                $("div#" + fieldId).css("background-color", "#fff0f0");
+                $("div#" + divId).css("background-color", "#fff0f0");
             }
-            $("div#" + fieldId + " p").text(message);
-            $("div#" + fieldId).delay(5000).fadeOut(500);
+            $("div#" + divId + " p").text(message);
+            $("div#" + divId).delay(5000).fadeOut(500);
         }
         
         function sendAjaxRequest(action, params, divId) {
@@ -88,7 +88,7 @@
         }
         
         $('#form_create').submit(function() {
-            divId = "status_send";
+            divId = "status_create";
             $("div#" + divId).fadeIn(100);
             sendAjaxRequest("POST", $(this).serialize() + "&" + login(), divId);
             return false;
