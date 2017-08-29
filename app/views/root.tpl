@@ -74,7 +74,9 @@
         
         function showNotification(notification) {
             jsonNotif = JSON.parse(notification);
-            $("#current_notification").text(jsonNotif.username + " " + jsonNotif.sent_at + "\n" + jsonNotif.message);
+            date = new Date(Date.parse(jsonNotif.sent_at));
+            datestr = date.getMonth() + " " + date.getDay() + ", " + date.getHours() + ":" + date.getMinutes();
+            $("#current_notification").text(jsonNotif.username + "   " + datestr + "\n--------------------\n" + jsonNotif.message);
         }
         
         function sendAjaxRequest(action, params, divId) {
