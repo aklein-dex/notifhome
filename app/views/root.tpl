@@ -91,8 +91,8 @@
                         showNotification(result.notification);
                     }
                  },
-                 error: function(result) {
-                     showStatus(false, "Error", divId);
+                 error: function(xhr, status, error) {
+                     showStatus(false, xhr.responseText, divId);
                  }
             });
         }

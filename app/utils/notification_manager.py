@@ -3,7 +3,6 @@ import platform
 import logging
 from datetime import datetime
 from app.utils.file_manager import create_file, read_oldest_file, delete_oldest_file
-from app.models.user import User
 from app.models.notification import Notification
 import logging
 
@@ -16,9 +15,9 @@ else:
     is_omega2 = False
     logging.info("Platform is not Omega2")
 
-def process_notification(user, message, light= 1, sound = 1):
+def process_notification(username, message, light= 1, sound = 1):
     success = False
-    notification = Notification(user.username, message, datetime.now(), light, sound)
+    notification = Notification(username, message, datetime.now(), light, sound)
     
     if not notification.is_valid():
         return False
