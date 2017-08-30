@@ -9,13 +9,14 @@ import logging
 
 @post('/notification')
 def action_create():
-    """Receive a notification"""
+    """Create a notification"""
     
     username = post_param('username', '')
     message  = post_param('message', '')
     light    = post_param('light', 1)
     sound    = post_param('sound', 1)
     return_code = process_notification(username, message, light, sound)
+        
     if return_code:
         msg = "Notification created"
     else:
@@ -44,9 +45,13 @@ def action_delete():
 
 @hook('before_request')
 def authenticate():
+    """Hook to authenticate user"""
     if request.environ['PATH_INFO'] == "/notification":
         user = getUser()
     
+        if user is None:
+            raise HTTPResponse(body="Forbidden", status=403)
+            
         if login(user):
             logging.info('Login success: %s', user.username)
         else:
@@ -56,14 +61,16 @@ def authenticate():
 @get('/')
 @view('app/views/root')
 def action_index():
-    """Show simple form to send a notification"""
+    """Main page"""
     return {}
     
 @get("/public/<filepath:re:.*\.js>")
 def js(filepath):
+    """Root to return files in the public folder"""
     return static_file(filepath, root="public")
 
 def getUser():
+    """Create user object with param from POST request or GET request"""
     username = post_param('username', '')
     if username == '':
         username = get_param('username', '')
@@ -71,7 +78,10 @@ def getUser():
     else:
         password = post_param('password', '')
     
-    return User(username, password)
+    if username == '':
+        return None
+    else:
+        return User(username, password)
     
 ## Bottle methods ##
 def postd():
