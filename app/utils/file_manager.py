@@ -20,12 +20,11 @@ def create_file(notification):
         return True
     except IOError as e:
         errno, strerror = e.args
-        print("I/O error({0}): {1}".format(errno,strerror))
+        #print("I/O error({0}): {1}".format(errno,strerror))
+        raise IOError
     except:
-        print("Unexpected error:", sys.exc_info()[0])
+        #print("Unexpected error:", sys.exc_info()[0])
         raise
-    
-    return False
 
 def count_files():
     """ Count the number of files in the queue folder excluding files starting with "." """
@@ -36,7 +35,10 @@ def delete_oldest_file():
     filelist = [os.path.join(FOLDER, f) for f in os.listdir(FOLDER) if os.path.isfile(os.path.join(FOLDER, f)) and f[0] != '.']
     if len(filelist) > 0:
         oldest = min(filelist, key=lambda x: os.stat(x).st_mtime)
-        os.remove(oldest)
+        try:
+            os.remove(oldest)
+        except:
+            raise
         return True
     return False
 
@@ -52,11 +54,14 @@ def read_oldest_file():
                 return notification
                 
         except IOError as e:
-            errno, strerror = e.args
-            print("I/O error({0}): {1}".format(errno,strerror))
-            return None
+            #errno, strerror = e.args
+            #print("I/O error({0}): {1}".format(errno,strerror))
+            #return None
+            raise IOError
         except:
-            print("Unexpected error:", sys.exc_info()[0])
-            return None
+            #print("Unexpected error:", sys.exc_info()[0])
+            #return None
+            raise
+    
     return None
 

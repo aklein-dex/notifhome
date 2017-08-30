@@ -1,7 +1,6 @@
 import sys
 import platform
 import logging
-from datetime import datetime
 from app.utils.file_manager import create_file, read_oldest_file, delete_oldest_file
 from app.models.notification import Notification
 import logging
@@ -15,39 +14,43 @@ else:
     is_omega2 = False
     logging.info("Platform is not Omega2")
 
-def process_notification(username, message, light= 1, sound = 1):
-    success = False
-    notification = Notification(username, message, datetime.now(), light, sound)
-    
-    if not notification.is_valid():
-        return False
-    
-    # create all type of notifications
-    if create_file(notification):
-        
-        if is_omega2:
-            # Print on screen only if this is the first notification
-            if count_files() == 1:
-                print_screen(notification)
+def process_notification(notification):
+    """Create all type of notifications"""
+    try:
+        if create_file(notification):
             
-            # make sound
-        
-            # turn on light
-            success = True
-        else:
-            success = True
-    else:
-        logging.warning('Failed creating notification')
-        success = False
-    
-    return success
+            if is_omega2:
+                # Print on screen only if this is the first notification
+                if count_files() == 1:
+                    print_screen(notification)
+                
+                # make sound
+            
+                # turn on light
+                
+            else:
+                pass
+
+    except IOError:
+        raise IOError
+    except:
+        raise
 
 def read_notification():
-    notification = read_oldest_file()
+    try:
+        notification = read_oldest_file()
+    except IOError:
+        raise IOError
+    except:
+        raise
     return notification
     
 def delete_notification():
-    deleted = delete_oldest_file()
+    try:
+        deleted = delete_oldest_file()
+    except:
+        raise
+    
     if is_omega2:
         #TODO clear screen
         # print on the screen the oldest following notif

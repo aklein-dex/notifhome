@@ -73,10 +73,14 @@
         }
         
         function showNotification(notification) {
-            jsonNotif = JSON.parse(notification);
-            date = new Date(Date.parse(jsonNotif.sent_at));
-            datestr = date.getMonth() + " " + date.getDay() + ", " + date.getHours() + ":" + date.getMinutes();
-            $("#current_notification").text(jsonNotif.username + "   " + datestr + "\n--------------------\n" + jsonNotif.message);
+            if (notification == null) {
+                $("#current_notification").text("");
+            } else {
+                jsonNotif = JSON.parse(notification);
+                date = new Date(Date.parse(jsonNotif.sent_at));
+                datestr = date.getMonth() + " " + date.getDay() + ", " + date.getHours() + ":" + date.getMinutes();
+                $("#current_notification").text(jsonNotif.username + "   " + datestr + "\n--------------------\n" + jsonNotif.message);
+            }
         }
         
         function sendAjaxRequest(action, params, divId) {
@@ -87,7 +91,7 @@
                 data: params,
                 success: function(result) {
                     showStatus(result.ok, result.msg, divId);
-                    if (divId == "status_view" && result.notification != null) {
+                    if (divId == "status_view") {
                         showNotification(result.notification);
                     }
                  },

@@ -1,6 +1,8 @@
 import sys
 from config import myconfig
 from app.models.user import User
+from app.models.notification import Notification
+from datetime import datetime
 from app.utils.authz import login
 from app.utils.notification_manager import process_notification, delete_notification, read_notification
 from app.bottle import run, get, post, delete, view, static_file, request, hook, HTTPResponse
@@ -11,33 +13,39 @@ import logging
 def action_create():
     """Create a notification"""
     
-    username = post_param('username', '')
-    message  = post_param('message', '')
-    light    = post_param('light', 1)
-    sound    = post_param('sound', 1)
-    return_code = process_notification(username, message, light, sound)
-        
-    if return_code:
-        msg = "Notification created"
-    else:
-        msg = "Problem while creating notification"
+    notification = build_notification();
     
-    return dict(ok=return_code, msg=msg)
+    try:
+        process_notification(notification)
+    except IOError:
+        raise HTTPResponse(body="Error processing notification IO", status=400)
+    except:
+        raise HTTPResponse(body="Unexpected error", status=400)
+        
+    return dict(ok=True, msg="Notification created")
 
 @get('/notification')
 def action_show():
     """View the oldest notification """
-    notification = read_notification()
-    if notification is not None:
-        return dict(ok=True, msg="ok", notification=notification.to_json())
-    else:
-        return dict(ok=True, msg="No notification")
+    try:
+        notification = read_notification()
+        if notification is not None:
+            return dict(ok=True, msg="ok", notification=notification.to_json())
+        else:
+            return dict(ok=True, msg="No notification")
+    except IOError:
+        raise HTTPResponse(body="Error reading notification IO", status=400)
+    except:
+        raise HTTPResponse(body="Unexpected error", status=400)
 
 @delete('/notification')
 def action_delete():
     """Delete the oldest notification"""
-    
-    deleted = delete_notification()
+    try:
+        deleted = delete_notification()
+    except:
+        raise HTTPResponse(body="Unexpected error", status=400)
+        
     if deleted:
         return dict(ok=True, msg="Done")
     else:
@@ -70,7 +78,7 @@ def js(filepath):
     return static_file(filepath, root="public")
 
 def getUser():
-    """Create user object with param from POST request or GET request"""
+    """Create user object with params from POST or GET request"""
     username = post_param('username', '')
     if username == '':
         username = get_param('username', '')
@@ -83,7 +91,7 @@ def getUser():
     else:
         return User(username, password)
     
-## Bottle methods ##
+## Helper methods ##
 def postd():
     return request.forms
 
@@ -92,6 +100,18 @@ def post_param(name, default=''):
     
 def get_param(name, default=''):
     return request.GET.get(name, default).strip()
+
+def build_notification():
+    username = post_param('username', '')
+    message  = post_param('message', '')
+    light    = post_param('light', 1)
+    sound    = post_param('sound', 1)
+    notification = Notification(username, message, datetime.now(), light, sound)
+    
+    if not notification.is_valid():
+        raise HTTPResponse(body="Notification invalid", status=400)
+    
+    return notification
 
 ###### Web application main ######
 def start_server():
