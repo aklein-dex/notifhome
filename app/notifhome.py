@@ -22,7 +22,7 @@ def action_create():
     except:
         raise HTTPResponse(body="Unexpected error", status=400)
         
-    return dict(ok=True, msg="Notification created")
+    return dict(msg="Notification created")
 
 @get('/notification')
 def action_show():
@@ -30,9 +30,9 @@ def action_show():
     try:
         notification = read_notification()
         if notification is not None:
-            return dict(ok=True, msg="ok", notification=notification.to_json())
+            return dict(msg="", notification=notification.to_json())
         else:
-            return dict(ok=True, msg="No notification")
+            return dict(msg="No notification")
     except IOError:
         raise HTTPResponse(body="Error reading notification IO", status=400)
     except:
@@ -47,9 +47,9 @@ def action_delete():
         raise HTTPResponse(body="Unexpected error", status=400)
         
     if deleted:
-        return dict(ok=True, msg="Done")
+        return dict(msg="Done")
     else:
-        return dict(ok=True, msg="Nothing to delete")
+        return dict(msg="Nothing to delete")
 
 @hook('before_request')
 def authenticate():
@@ -77,6 +77,8 @@ def js(filepath):
     """Root to return files in the public folder"""
     return static_file(filepath, root="public")
 
+## Helper methods ##
+
 def getUser():
     """Create user object with params from POST or GET request"""
     username = post_param('username', '')
@@ -90,10 +92,6 @@ def getUser():
         return None
     else:
         return User(username, password)
-    
-## Helper methods ##
-def postd():
-    return request.forms
 
 def post_param(name, default=''):
     return request.POST.get(name, default).strip()
@@ -115,6 +113,6 @@ def build_notification():
 
 ###### Web application main ######
 def start_server():
-    # Start the Bottle webapp
+    """Start the Bottle webapp"""
     run(host=myconfig.HOST, port=myconfig.PORT, quiet=False, reloader=False)
 

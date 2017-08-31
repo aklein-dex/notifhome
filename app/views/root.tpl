@@ -61,9 +61,11 @@
             return $('#username').serialize() + "&" + $('#password').serialize();
         }
         
-        function showStatus(status, message, divId) {
-            $("div#" + divId).css("background-color", "#f0fff0");
-            if (status) {
+        function showStatus(success, message, divId) {
+            if (message == "")
+                return;
+            
+            if (success) {
                 $("div#" + divId).css("background-color", "#f0fff0");
             } else {
                 $("div#" + divId).css("background-color", "#fff0f0");
@@ -90,7 +92,7 @@
                 type: action,
                 data: params,
                 success: function(result) {
-                    showStatus(result.ok, result.msg, divId);
+                    showStatus(true, result.msg, divId);
                     if (divId == "status_view") {
                         showNotification(result.notification);
                     }
