@@ -60,12 +60,18 @@ def authenticate():
     
         if user is None:
             raise HTTPResponse(body="Forbidden", status=403)
-            
-        if login(user):
-            logging.info('Login success: %s', user.username)
-        else:
-            raise HTTPResponse(body="Invalid username or password", status=401)
-    
+        
+        try:
+            if login(user):
+                logging.info('Login success: %s', user.username)
+                return
+        except IOError:
+            raise HTTPResponse(body="Error reading user file", status=400)
+        except Exception as e:
+            raise HTTPResponse(body="Unexpected error", status=400)
+        
+        raise HTTPResponse(body="Invalid username or password", status=401)
+
 # Static Routes
 @get('/')
 @view('app/views/root')
