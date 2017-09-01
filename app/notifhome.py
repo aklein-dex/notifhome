@@ -29,14 +29,15 @@ def action_show():
     """View the oldest notification """
     try:
         notification = read_notification()
-        if notification is not None:
-            return dict(msg="", notification=notification.to_json())
-        else:
-            return dict(msg="No notification")
     except IOError:
         raise HTTPResponse(body="Error reading notification IO", status=400)
     except:
         raise HTTPResponse(body="Unexpected error", status=400)
+    
+    if notification is not None:
+        return dict(msg="", notification=notification.to_json())
+    else:
+        return dict(msg="No notification")
 
 @delete('/notification')
 def action_delete():
@@ -47,9 +48,9 @@ def action_delete():
         raise HTTPResponse(body="Unexpected error", status=400)
         
     if deleted:
-        return dict(msg="Done")
+        return dict(msg="Notification deleted")
     else:
-        return dict(msg="Nothing to delete")
+        return dict(msg="No notification to delete")
 
 @hook('before_request')
 def authenticate():
@@ -94,12 +95,15 @@ def getUser():
         return User(username, password)
 
 def post_param(name, default=''):
+    """Helper to easily get POST parameter"""
     return request.POST.get(name, default).strip()
     
 def get_param(name, default=''):
+    """Helper to easily get GET parameter"""
     return request.GET.get(name, default).strip()
 
 def build_notification():
+    """Return an object notification based on the POST parameters"""
     username = post_param('username', '')
     message  = post_param('message', '')
     light    = post_param('light', 1)
