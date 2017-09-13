@@ -21,6 +21,12 @@ if os.path.isfile(LOCAL_CONFIG):
                 USERS_FILE = split[1]
             elif split[0] == "QUEUE_FOLDER":
                 QUEUE_FOLDER = split[1]
+            elif split[0] == "SCREEN":
+                SCREEN = split[1]
+            elif split[0] == "SOUND":
+                SOUND = split[1]
+            elif split[0] == "LIGHT":
+                LIGHT = split[1]
 
 try:
     LOGFILE
@@ -31,25 +37,25 @@ except NameError:
 try:
     PORT
 except NameError:
-    PORT=9090
+    PORT = 9090
 
 # Host to run the server
 try:
     HOST
 except NameError:
-    HOST='0.0.0.0'
+    HOST = '0.0.0.0'
     
 # Format use to display the date on the screen
 try:
     DATE_FORMAT
 except NameError:    
-    DATE_FORMAT="%b %d, %H:%M"
+    DATE_FORMAT = "%b %d, %H:%M"
 
 # File containing the list of users
 try:
     USERS_FILE
 except NameError:
-    USERS_FILE="config/users.authz"
+    USERS_FILE = "config/users.authz"
 
 # Folder containing unread notifications.
 # In this folder, 1 file is 1 notification.
@@ -57,4 +63,22 @@ except NameError:
 try:
     QUEUE_FOLDER
 except NameError:
-    QUEUE_FOLDER="queue"
+    QUEUE_FOLDER = "queue"
+
+# Enable/disable screen notifications 
+try:
+    SCREEN
+except NameError:
+    SCREEN = True
+
+# Enable/disable sound notifications 
+try:
+    SOUND
+except NameError:
+    SOUND = True
+    
+# Enable/disable light notifications 
+try:
+    LIGHT
+except NameError:
+    LIGHT = True
