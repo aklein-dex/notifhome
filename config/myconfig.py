@@ -1,8 +1,8 @@
 import os.path
 
 # DO NOT MODIFY THIS FILE!
-# If you want to change default values, then create a file "config/myconfig.local"
-# to override the default values.
+# If you want to change default values below, then create a 
+# file "config/myconfig.local".
 
 LOCAL_CONFIG="config/myconfig.local"
 
@@ -23,10 +23,18 @@ if os.path.isfile(LOCAL_CONFIG):
                 QUEUE_FOLDER = split[1]
             elif split[0] == "SCREEN":
                 SCREEN = split[1]
+            elif split[0] == "BUTTON":
+                BUTTON = split[1]
             elif split[0] == "SOUND":
                 SOUND = split[1]
             elif split[0] == "LIGHT":
                 LIGHT = split[1]
+            elif split[0] == "PIN_SOUND":
+                PIN_SOUND = split[1]
+            elif split[0] == "PIN_LIGHT":
+                PIN_LIGHT = split[1]
+            elif split[0] == "PIN_BUTTON":
+                PIN_BUTTON = split[1]
 
 try:
     LOGFILE
@@ -82,3 +90,28 @@ try:
     LIGHT
 except NameError:
     LIGHT = True
+
+# If a button is present. Otherwise user has to delete notifications
+# via the Web site.
+try:
+    BUTTON
+except NameError:
+    BUTTON = True
+    
+# GPIO pin for the buzzer
+try:
+    PIN_SOUND
+except NameError:
+    PIN_SOUND = 0
+
+# GPIO pin for the LED
+try:
+    PIN_LIGHT
+except NameError:
+    PIN_LIGHT = 2
+
+# GPIO pin for the button
+try:
+    PIN_BUTTON
+except NameError:
+    PIN_BUTTON = 12
