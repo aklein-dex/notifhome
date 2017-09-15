@@ -6,7 +6,7 @@ USERS_FILE = myconfig.USERS_FILE
 
 def login(user):
     """check if the param user matches one of the entries of the users file"""
-    # Note: it opens and read the files everytime. Maybe we could read the file
+    # Note: it opens and read the file everytime. Maybe we could read the file
     #       just once and save a list of users.
     if not user.is_valid():
         return False

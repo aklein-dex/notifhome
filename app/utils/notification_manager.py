@@ -39,6 +39,7 @@ def process_notification(notification):
         raise
 
 def read_notification():
+    """ Return the oldest notification. """
     try:
         notification = read_oldest_file()
     except IOError:
@@ -48,6 +49,9 @@ def read_notification():
     return notification
     
 def delete_notification():
+    """ Delete the oldest notification and print on the screen
+        next one. 
+    """
     try:
         deleted = delete_oldest_file()
     except:
@@ -62,6 +66,7 @@ def delete_notification():
     return deleted
 
 def init_hardware():
+    """ Initialize the hardware part: screen, light, sound. """
     initialized = True
     
     if is_omega2:
