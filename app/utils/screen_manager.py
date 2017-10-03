@@ -12,9 +12,11 @@ DATE_FORMAT = myconfig.DATE_FORMAT
 # a line is 21 characters long
 LINE_LENGTH = 21
 
+# Specifies if the screen was initialized.
 is_init = False
 
 def init_screen():
+    """ Initalizaed the screen. """
     global is_init
     is_init = not oledExp.driverInit()
     if is_init:
