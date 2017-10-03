@@ -27,14 +27,15 @@ if os.path.isfile(LOCAL_CONFIG):
                 BUTTON = split[1]
             elif split[0] == "SOUND":
                 SOUND = split[1]
-            elif split[0] == "LIGHT":
-                LIGHT = split[1]
+            elif split[0] == "LED":
+                LED = split[1]
             elif split[0] == "PIN_SOUND":
-                PIN_SOUND = split[1]
+                PIN_SOUND = int(split[1])
             elif split[0] == "PIN_LIGHT":
-                PIN_LIGHT = split[1]
+                PIN_LED = int(split[1])
             elif split[0] == "PIN_BUTTON":
-                PIN_BUTTON = split[1]
+                PIN_BUTTON = int(split[1])
+
 
 try:
     LOGFILE
@@ -85,11 +86,11 @@ try:
 except NameError:
     SOUND = True
     
-# Enable/disable light notifications 
+# Enable/disable led notifications 
 try:
-    LIGHT
+    LED
 except NameError:
-    LIGHT = True
+    LED = True
 
 # If a button is present. Otherwise user has to delete notifications
 # via the Web site.
@@ -106,9 +107,9 @@ except NameError:
 
 # GPIO pin for the LED
 try:
-    PIN_LIGHT
+    PIN_LED
 except NameError:
-    PIN_LIGHT = 2
+    PIN_LED = 2
 
 # GPIO pin for the button
 try:

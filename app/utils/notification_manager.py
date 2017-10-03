@@ -11,6 +11,7 @@ if platform.uname()[4] == 'mips':
     logging.info('Platform is Omega2')
     is_omega2 = True
     from app.utils.screen_manager import print_screen, init_screen
+    from app.utils.led_manager import init_led, blink_led
 else:
     is_omega2 = False
     logging.info("Platform is not Omega2")
@@ -26,12 +27,12 @@ def process_notification(notification):
                     print_screen(notification)
                 
                 # make sound
-                if myconfig.SOUND:
+                if myconfig.SOUND: # and notification.sound
                     pass
             
-                # turn on light
-                if myconfig.LIGHT:
-                    pass
+                # turn on led
+                if myconfig.LED: # and notification.light
+                    blink_led()
 
     except IOError:
         raise IOError
@@ -73,9 +74,8 @@ def init_hardware():
             # initialized = init_sound()
             pass
             
-        if initialized and myconfig.LIGHT:
-            # initialized = init_light()
-            pass
+        if initialized and myconfig.LED:
+            initialized = init_led()
     
     return initialized
 
