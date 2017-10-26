@@ -27,8 +27,6 @@ emit a beep and show a message on the screen.
 To aknowledge the notification the user can push a button (attached to the Omega2) or 
 log in to the server and disable the notification.
 
-############ GET CERTIFICATE FOR HTTPS
-
 ### Instructions
 
 #### Source code
@@ -43,10 +41,12 @@ $ opkg install git git-http ca-bundle
 $ git --version
 git version 2.11.0
 ```
-##### Transfer the file
+##### Transfer this project
 
-You may want to clone this repo on your PC and transfer
-the files (scp) if you don't want to install git.
+After installing `git`, just clone this repository.
+
+Or you may want to clone this repository on your PC and transfer 
+the files to the Omega2 using `scp` if you don't want to install `git`.
 
 #### Install python
 
@@ -64,10 +64,11 @@ Note: we are using python 2.7 because of pyOledExp.
 ##### Config
 
 Default values are in `config/myconfig.py` but do not modify this file. Instead, create another file `config/myconfig.local` to override the default values.
+The file `config/myconfig.local` is not versioned, so there is no risk to lose it when updating the repository.
 
 ##### Users
 
-Edit the file `config/users.authz` to add users. The format is <username>:<password>.
+Edit the file `config/users.authz` to add users. The format is `{username}:{password}`.
 
 #### Run the server
 
@@ -75,7 +76,7 @@ Simply run the command:
 ```
 $ python startup.py
 ```
-Open your browser to http://localhost:9090/.
+Open your browser to `http://localhost:9090/`.
 
 
 ### Future version
