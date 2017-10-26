@@ -57,23 +57,28 @@
     
     <script src="public/jquery.min.js"></script>
     <script>
-        function login() {
+        // Return the username and password serialized because they are 
+        // passed in the URL.
+        function loginParams() {
             return $('#username').serialize() + "&" + $('#password').serialize();
         }
         
+        // Display a message.
         function showStatus(success, message, divId) {
             if (message == "")
                 return;
             
             if (success) {
-                $("div#" + divId).css("background-color", "#f0fff0");
+                color = "#f0fff0";
             } else {
-                $("div#" + divId).css("background-color", "#fff0f0");
+                color = "#fff0f0";
             }
+            $("div#" + divId).css("background-color", color);
             $("div#" + divId + " p").text(message);
             $("div#" + divId).delay(5000).fadeOut(500);
         }
         
+        // Display a notification.
         function showNotification(notification) {
             if (notification == null) {
                 $("#current_notification").text("");
@@ -106,14 +111,14 @@
         $('#form_create').submit(function() {
             divId = "status_create";
             $("div#" + divId).fadeIn(100);
-            sendAjaxRequest("POST", $(this).serialize() + "&" + login(), divId);
+            sendAjaxRequest("POST", $(this).serialize() + "&" + loginParams(), divId);
             return false;
         });
         
         $('#form_view').submit(function() {
             divId = "status_view";
             $("div#" + divId).fadeIn(100);
-            sendAjaxRequest("GET", login(), divId);
+            sendAjaxRequest("GET", loginParams(), divId);
             return false;
         });
         
@@ -121,7 +126,7 @@
             if(confirm('Are you sure?')) {
                 divId = "status_delete";
                 $("div#" + divId).fadeIn(100);
-                sendAjaxRequest("DELETE", login(), divId);
+                sendAjaxRequest("DELETE", loginParams(), divId);
             }
             return false;
         });
