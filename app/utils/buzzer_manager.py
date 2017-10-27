@@ -1,39 +1,39 @@
 import onionGpio
 from config import myconfig
 
-PIN = myconfig.PIN_LED
+PIN = myconfig.PIN_BUZZER
 
 # specify sleep duration
 sleepTime = 0.5
 
 # instantiate a GPIO object
-gpio_led = onionGpio.OnionGpio(PIN)
+gpio_buzzer = onionGpio.OnionGpio(PIN)
 # set to output direction with zero (LOW) being the default value
-gpio_led.setOutputDirection(0)
+gpio_buzzer.setOutputDirection(0)
 
 
-def init_led():
-    """ Nothing special, just blink the led"""
-    blink_led()
+def init_buzzer():
+    """ Nothing special, just emit beep"""
+    emit_beep()
     return True
     
-def blink_led():
-    """ Blink led for a period of time"""
-    # create a variable to hold the value of the LED
-    ledValue = 1
+def emit_beep():
+    """ Emit beep for a period of time"""
+    # create a variable to hold the value of the buzzer
+    buzzerValue = 1
     
     count = 0
 
     # TODO: a thread?
     while count < 6:
         # set the GPIO's value
-        gpio_led.setValue(ledValue)
+        gpio_buzzer.setValue(buzzerValue)
 
         # flip the value variable
-        if ledValue == 1:
-            ledValue = 0
+        if buzzerValue == 1:
+            buzzerValue = 0
         else:
-            ledValue = 1
+            buzzerValue = 1
 
         # make the program pause
         time.sleep(sleepTime)

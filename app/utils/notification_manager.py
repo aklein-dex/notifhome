@@ -12,6 +12,7 @@ if platform.uname()[4] == 'mips':
     is_omega2 = True
     from utils.screen_manager import print_screen, init_screen
     from utils.led_manager import init_led, blink_led
+    from utils.buzzer_manager import init_buzzer, emit_beep
 else:
     is_omega2 = False
     logging.info("Platform is not Omega2")
@@ -27,8 +28,8 @@ def process_notification(notification):
                     print_screen(notification)
                 
                 # make sound
-                if myconfig.SOUND: # and notification.sound
-                    pass
+                if myconfig.BUZZER: # and notification.sound
+                    emit_beep()
             
                 # turn on led
                 if myconfig.LED: # and notification.light
@@ -76,8 +77,7 @@ def init_hardware():
             initialized = init_screen()
         
         if initialized and myconfig.SOUND:
-            # initialized = init_sound()
-            pass
+            initialized = init_buzzer()
             
         if initialized and myconfig.LED:
             initialized = init_led()

@@ -29,8 +29,8 @@ if os.path.isfile(LOCAL_CONFIG):
                 SOUND = split[1] == 'True'
             elif split[0] == "LED":
                 LED = split[1] == 'True'
-            elif split[0] == "PIN_SOUND":
-                PIN_SOUND = int(split[1])
+            elif split[0] == "PIN_BUZZER":
+                PIN_BUZZER = int(split[1])
             elif split[0] == "PIN_LIGHT":
                 PIN_LED = int(split[1])
             elif split[0] == "PIN_BUTTON":
@@ -82,9 +82,9 @@ except NameError:
 
 # Enable/disable sound notifications 
 try:
-    SOUND
+    BUZZER
 except NameError:
-    SOUND = True
+    BUZZER = True
     
 # Enable/disable led notifications 
 try:
@@ -101,9 +101,9 @@ except NameError:
     
 # GPIO pin for the buzzer
 try:
-    PIN_SOUND
+    PIN_BUZZER
 except NameError:
-    PIN_SOUND = 0
+    PIN_BUZZER = 0
 
 # GPIO pin for the LED
 try:
