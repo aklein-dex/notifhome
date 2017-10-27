@@ -10,8 +10,8 @@ import logging
 if platform.uname()[4] == 'mips':
     logging.info('Platform is Omega2')
     is_omega2 = True
-    from app.utils.screen_manager import print_screen, init_screen
-    from app.utils.led_manager import init_led, blink_led
+    from utils.screen_manager import print_screen, init_screen
+    from utils.led_manager import init_led, blink_led
 else:
     is_omega2 = False
     logging.info("Platform is not Omega2")

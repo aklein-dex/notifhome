@@ -22,13 +22,13 @@ if os.path.isfile(LOCAL_CONFIG):
             elif split[0] == "QUEUE_FOLDER":
                 QUEUE_FOLDER = split[1]
             elif split[0] == "SCREEN":
-                SCREEN = split[1]
+                SCREEN = split[1] == 'True'
             elif split[0] == "BUTTON":
-                BUTTON = split[1]
+                BUTTON = split[1] == 'True'
             elif split[0] == "SOUND":
-                SOUND = split[1]
+                SOUND = split[1] == 'True'
             elif split[0] == "LED":
-                LED = split[1]
+                LED = split[1] == 'True'
             elif split[0] == "PIN_SOUND":
                 PIN_SOUND = int(split[1])
             elif split[0] == "PIN_LIGHT":

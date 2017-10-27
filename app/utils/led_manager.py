@@ -9,9 +9,9 @@ PIN = myconfig.PIN_LED
 sleepTime = 0.5
 
 # instantiate a GPIO object
-gpio0 = onionGpio.OnionGpio(PIN)
+gpio_led = onionGpio.OnionGpio(PIN)
 # set to output direction with zero (LOW) being the default value
-gpio0.setOutputDirection(0)
+gpio_led.setOutputDirection(0)
 
 
 def init_led():
@@ -29,7 +29,7 @@ def blink_led():
     # TODO: a thread?
     while count < 6:
         # set the GPIO's value
-        gpio0.setValue(ledValue)
+        gpio_led.setValue(ledValue)
 
         # flip the value variable
         if ledValue == 1:
