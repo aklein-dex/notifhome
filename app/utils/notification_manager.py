@@ -1,8 +1,8 @@
 import sys
 import platform
 import logging
-from app.utils.file_manager import create_file, read_oldest_file, delete_oldest_file
-from app.models.notification import Notification
+from utils.file_manager import create_file, read_oldest_file, delete_oldest_file
+from models.notification import Notification
 from config import myconfig
 import logging
 

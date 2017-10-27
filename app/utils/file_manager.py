@@ -1,6 +1,6 @@
 import os
 import sys
-from app.models.notification import Notification
+from models.notification import Notification
 from config import myconfig
 
 FOLDER = myconfig.QUEUE_FOLDER

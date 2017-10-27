@@ -1,5 +1,5 @@
 import sys
-from app.models.user import User
+from models.user import User
 from config import myconfig
 
 USERS_FILE = myconfig.USERS_FILE

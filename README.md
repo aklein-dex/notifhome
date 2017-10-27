@@ -78,6 +78,14 @@ $ python startup.py
 ```
 Open your browser to `http://localhost:9090/`.
 
+#### Tests
+
+The package [WebTest](https://docs.pylonsproject.org/projects/webtest/en/latest/) is required to run the tests. 
+I don't run the tests on the Omega2 because the disk space is limited, so I only run the tests on my computer.
+```
+$ pip install WebTest
+$ python test/test_notifhome.py
+```
 
 ### Future version
 

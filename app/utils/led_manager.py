@@ -1,6 +1,6 @@
 import onionGpio
 import time
-from app.models.notification import Notification
+from models.notification import Notification
 from config import myconfig
 
 PIN = myconfig.PIN_LED

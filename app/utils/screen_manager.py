@@ -1,5 +1,5 @@
 from OmegaExpansion import oledExp
-from app.models.notification import Notification
+from models.notification import Notification
 from config import myconfig
 
 DATE_FORMAT = myconfig.DATE_FORMAT
