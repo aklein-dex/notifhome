@@ -1,4 +1,5 @@
 import onionGpio
+import time
 from config import myconfig
 
 PIN = myconfig.PIN_LED

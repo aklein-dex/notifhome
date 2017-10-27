@@ -76,7 +76,7 @@ def init_hardware():
         if myconfig.SCREEN:
             initialized = init_screen()
         
-        if initialized and myconfig.SOUND:
+        if initialized and myconfig.BUZZER:
             initialized = init_buzzer()
             
         if initialized and myconfig.LED:
