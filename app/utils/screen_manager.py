@@ -1,8 +1,8 @@
 from OmegaExpansion import oledExp
 from models.notification import Notification
-from config import myconfig
+from config import config
 
-DATE_FORMAT = myconfig.DATE_FORMAT
+DATE_FORMAT = config.DATE_FORMAT
 
 # From the oledExp:
 #   All functions follow the same pattern with return values:

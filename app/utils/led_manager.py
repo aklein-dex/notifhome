@@ -1,8 +1,8 @@
 import onionGpio
 import time
-from config import myconfig
+from config import config
 
-PIN = myconfig.PIN_LED
+PIN = config.PIN_LED
 
 # specify sleep duration
 sleepTime = 0.5

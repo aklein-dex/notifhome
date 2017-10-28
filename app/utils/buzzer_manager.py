@@ -1,8 +1,8 @@
 import onionGpio
 import time
-from config import myconfig
+from config import config
 
-PIN = myconfig.PIN_BUZZER
+PIN = config.PIN_BUZZER
 
 # specify sleep duration
 sleepTime = 0.5

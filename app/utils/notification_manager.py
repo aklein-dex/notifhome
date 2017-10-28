@@ -3,7 +3,7 @@ import platform
 import logging
 from utils.file_manager import create_file, read_oldest_file, delete_oldest_file
 from models.notification import Notification
-from config import myconfig
+from config import config
 import logging
 
 # Check if the current machine is an Omega2. I couldn't find any other way that is 100% accurate.
@@ -24,15 +24,15 @@ def process_notification(notification):
             
             if is_omega2:
                 # Print on screen only if this is the first notification
-                if myconfig.SCREEN and count_files() == 1:
+                if config.SCREEN and count_files() == 1:
                     print_screen(notification)
                 
                 # make sound
-                if myconfig.BUZZER: # and notification.sound
+                if config.BUZZER: # and notification.sound
                     emit_beep()
             
                 # turn on led
-                if myconfig.LED: # and notification.light
+                if config.LED: # and notification.light
                     blink_led()
 
     except IOError:
@@ -59,7 +59,7 @@ def delete_notification():
     except:
         raise
     
-    if is_omega2 and myconfig.SCREEN:
+    if is_omega2 and config.SCREEN:
         #TODO clear screen
         # print on the screen the oldest following notif
         notification = read_oldest_file()
@@ -73,13 +73,13 @@ def init_hardware():
     
     if is_omega2:
         
-        if myconfig.SCREEN:
+        if config.SCREEN:
             initialized = init_screen()
         
-        if initialized and myconfig.BUZZER:
+        if initialized and config.BUZZER:
             initialized = init_buzzer()
             
-        if initialized and myconfig.LED:
+        if initialized and config.LED:
             initialized = init_led()
     
     return initialized

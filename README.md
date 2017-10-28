@@ -63,8 +63,17 @@ Note: we are using python 2.7 because of pyOledExp.
 
 ##### Config
 
-Default values are in `config/myconfig.py` but do not modify this file. Instead, create another file `config/myconfig.local` to override the default values.
+Default values are in `config/config.py` but do not modify this file. Instead, create another file `config/myconfig.local` 
+to override the default values.
 The file `config/myconfig.local` is not versioned, so there is no risk to lose it when updating the repository.
+Make sure to start the file with `[notifhome]`. Here is an example:
+```
+[notifhome]
+host = 127.0.0.1
+port = 8080
+screen = False
+buzzer = True
+```
 
 ##### Users
 
