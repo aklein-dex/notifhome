@@ -1,48 +1,24 @@
-import onionGpio
-import time
 import thread
 from config import config
+from gpio_manager import init_gpio_led, activate_gpio_led
 
 PIN = config.PIN_LED
 
 # specify sleep duration
 sleepTime = 0.5
 
-# instantiate a GPIO object
-gpio_led = onionGpio.OnionGpio(PIN)
-# set to output direction with zero (LOW) being the default value
-gpio_led.setOutputDirection(0)
+repetition = 10
 
 
 def init_led():
     """ Nothing special, just blink the led"""
+    init_gpio_led(PIN)
     blink_led()
     return True
 
 def blink_led():
     try:
-       thread.start_new_thread( threaded_blink, () )
+       thread.start_new_thread( activate_gpio_led, (sleepTime, repetition) )
     except:
        print "Error: unable to start thread"
-    
-def threaded_blink():
-    """ Blink led for a period of time"""
-    # create a variable to hold the value of the LED
-    ledValue = 1
-    
-    count = 0
 
-    # TODO: a thread?
-    while count < 6:
-        # set the GPIO's value
-        gpio_led.setValue(ledValue)
-
-        # flip the value variable
-        if ledValue == 1:
-            ledValue = 0
-        else:
-            ledValue = 1
-
-        # make the program pause
-        time.sleep(sleepTime)
-        count = count + 1
