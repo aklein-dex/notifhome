@@ -17,8 +17,14 @@ def init_led():
     """ Nothing special, just blink the led"""
     blink_led()
     return True
-    
+
 def blink_led():
+    try:
+       thread.start_new_thread( threaded_blink, () )
+    except:
+       print "Error: unable to start thread"
+    
+def threaded_blink():
     """ Blink led for a period of time"""
     # create a variable to hold the value of the LED
     ledValue = 1

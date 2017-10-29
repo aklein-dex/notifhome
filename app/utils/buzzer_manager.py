@@ -1,5 +1,6 @@
 import onionGpio
 import time
+import thread
 from config import config
 
 PIN = config.PIN_BUZZER
@@ -17,8 +18,14 @@ def init_buzzer():
     """ Nothing special, just emit beep"""
     emit_beep()
     return True
-    
+
 def emit_beep():
+    try:
+       thread.start_new_thread( threaded_emit, () )
+    except:
+       print "Error: unable to start thread"
+           
+def threaded_emit():
     """ Emit beep for a period of time"""
     # create a variable to hold the value of the buzzer
     buzzerValue = 1
