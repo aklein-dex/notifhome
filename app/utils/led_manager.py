@@ -1,5 +1,6 @@
 import onionGpio
 import time
+import thread
 from config import config
 
 PIN = config.PIN_LED
