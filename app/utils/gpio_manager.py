@@ -5,6 +5,7 @@ gpio_buzzer = None
 gpio_led = None
 
 def init_gpio_output(element, pin):
+    """Initialize the gpio."""
     if element == "led":
         global gpio_led
         gpio = gpio_led
@@ -19,7 +20,7 @@ def init_gpio_output(element, pin):
     return True
 
 def activate_gpio(element, sleepTime, repetition):
-    """ Blink led for a period of time"""
+    """ Send current."""
     if element == "led":
         global gpio_led
         gpio = gpio_led

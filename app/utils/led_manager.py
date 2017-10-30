@@ -1,14 +1,15 @@
 import thread
 from config import config
-from gpio_manager import init_gpio_led, activate_gpio_led
+from gpio_manager import init_gpio_output, activate_gpio
 
+# Gpio pin for the led
 PIN = config.PIN_LED
 
-# specify sleep duration
+# Sets the sleep duration between 2 blinks.
 sleepTime = 0.5
 
+# Set the number of beeps.
 repetition = 10
-
 
 def init_led():
     """ Nothing special, just blink the led"""
@@ -17,6 +18,7 @@ def init_led():
     return True
 
 def blink_led():
+    """Start thread method to blink the led."""
     try:
        thread.start_new_thread( activate_gpio, ("led", sleepTime, repetition) )
     except:
