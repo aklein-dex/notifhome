@@ -12,13 +12,13 @@ repetition = 10
 
 def init_led():
     """ Nothing special, just blink the led"""
-    init_gpio_led(PIN)
+    init_gpio_output("led", PIN)
     blink_led()
     return True
 
 def blink_led():
     try:
-       thread.start_new_thread( activate_gpio_led, (sleepTime, repetition) )
+       thread.start_new_thread( activate_gpio, ("led", sleepTime, repetition) )
     except:
        print "Error: unable to start thread"
 

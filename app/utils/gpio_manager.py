@@ -1,39 +1,32 @@
 import onionGpio
 import time
 
-gpio_buzzer = onionGpio.OnionGpio(0)
-gpio_led = onionGpio.OnionGpio(2)
+gpio_buzzer = None
+gpio_led = None
 
-def init_gpio_buzzer(pin):
-    """ Nothing special, just blink the led"""
-    global gpio_buzzer
-    init_gpio_output(pin, gpio_buzzer)
-    return True
-    
-def init_gpio_led(pin):
-    """ Nothing special, just blink the led"""
-    global gpio_led
-    init_gpio_output(pin, gpio_led)
-    return True
-
-def init_gpio_output(pin, gpio):
+def init_gpio_output(element, pin):
+    if element == "led":
+        global gpio_led
+        gpio = gpio_led
+    else:
+        global gpio_buzzer
+        gpio = gpio_buzzer
+        
     # instantiate a GPIO object
     gpio = onionGpio.OnionGpio(pin)
     # set to output direction with zero (LOW) being the default value
     gpio.setOutputDirection(0)
     return True
 
-def activate_gpio_led(sleepTime, repetition):
-    global gpio_led
-    activate_gpio(gpio_led, sleepTime, repetition)
-
-def activate_gpio_buzzer(sleepTime, repetition):
-    global gpio_buzzer
-    activate_gpio(gpio_buzzer, sleepTime, repetition)
-
-
-def activate_gpio(gpio, sleepTime, repetition):
+def activate_gpio(element, sleepTime, repetition):
     """ Blink led for a period of time"""
+    if element == "led":
+        global gpio_led
+        gpio = gpio_led
+    else:
+        global gpio_buzzer
+        gpio = gpio_buzzer
+        
     # create a variable to hold the value of the LED
     ledValue = 1
     

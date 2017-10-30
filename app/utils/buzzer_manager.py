@@ -12,13 +12,13 @@ repetition = 10
 
 def init_buzzer():
     """ Nothing special, just emit beep"""
-    init_gpio_buzzer(PIN)
+    init_gpio_output("buzzer", PIN)
     emit_beep()
     return True
 
 def emit_beep():
     try:
-       thread.start_new_thread( activate_gpio_buzzer, (sleepTime, repetition) )
+       thread.start_new_thread( activate_gpio, ("buzzer", sleepTime, repetition) )
     except:
        print "Error: unable to start thread"
       
