@@ -8,26 +8,20 @@ def init_gpio_output(element, pin):
     """Initialize the gpio."""
     if element == "led":
         global gpio_led
-        gpio = gpio_led
+        gpio_led = onionGpio.OnionGpio(pin)
+        # set to output direction with zero (LOW) being the default value
+        gpio_led.setOutputDirection(0)
     else:
         global gpio_buzzer
-        gpio = gpio_buzzer
-        
-    # instantiate a GPIO object
-    gpio = onionGpio.OnionGpio(pin)
-    # set to output direction with zero (LOW) being the default value
-    gpio.setOutputDirection(0)
+        gpio_buzzer = onionGpio.OnionGpio(pin)
+        # set to output direction with zero (LOW) being the default value
+        gpio_buzzer.setOutputDirection(0)
+ 
     return True
 
 def activate_gpio(element, sleepTime, repetition):
     """ Send current."""
-    if element == "led":
-        global gpio_led
-        gpio = gpio_led
-    else:
-        global gpio_buzzer
-        gpio = gpio_buzzer
-        
+     
     # create a variable to hold the value of the LED
     ledValue = 1
     
@@ -35,7 +29,14 @@ def activate_gpio(element, sleepTime, repetition):
 
     while count < repetition:
         # set the GPIO's value
-        gpio.setValue(ledValue)
+        # note: I wanted to do this "if" outside the loop but
+        #       I can't figure out how to do it...
+        if element == "led":
+            global gpio_led
+            gpio_led.setValue(ledValue)
+        else:
+            global gpio_buzzer
+            gpio_buzzer.setValue(ledValue)
 
         # flip the value variable
         if ledValue == 1:
