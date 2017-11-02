@@ -11,21 +11,23 @@ with the [Onion Omega2](https://onion.io/) board.
 - LED
 - buzzer
 - button
+- resistors 51kΩ, 5.1kΩ, 200Ω, 200Ω
+- capacitor 100nF
+- jumper wires
 
 ### Scenario
 
 #### Problem
 
-When I'm outside and try to contact my wife (or the opposite) on her cellphone, 
-she sometimes doesn't hear her phone ringing because she is in another room or her phone is in vibration mode in her bag. 
+When I'm outside and try to contact my wife on her cellphone, 
+she sometimes doesn't hear it ringing because she is in another room or it is in vibration mode in her bag. 
 
 #### Solution
 
-With this project, I'm able to send notifications to the Omega2 so it will turn on the LED, 
+With this project, I'm able to send messages to the Omega2 to notify my wife. The Omega2 will turn on the LED, 
 emit a beep and show a message on the screen.
 
-To aknowledge the notification the user can push a button (attached to the Omega2) or 
-log in to the server and disable the notification.
+To acknowledge a notification, simply press the button on the Omega2 or use the Website.
 
 ### Instructions
 
