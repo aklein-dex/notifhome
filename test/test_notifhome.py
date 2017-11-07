@@ -3,7 +3,7 @@
 # Integration tests for Notifhome.
 #
 # Run the tests from the root folder of this project:
-#   python test/test_web.py
+#   python test/test_notifhome.py
 #
 # Make sure the username and password in the setUp function
 # exist otherwise some tests will fail.
