@@ -5,7 +5,7 @@ class User:
         self.password = password
 
     def is_valid(self):
-        if self.username and self.password:
+        if self.username and len(self.username) > 0 and self.password and len(self.password) > 0:
             return True
         return False
 
