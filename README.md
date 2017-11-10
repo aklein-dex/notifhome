@@ -2,6 +2,8 @@
 Minimalist python Web server (using [bottle](https://bottlepy.org/)) to manage notifications 
 with the [Onion Omega2](https://onion.io/) board.
 
+For pictures, please see [here](http://alexandreklein.com/notifhome.html).
+
 ### Components
 
 - Omega2
@@ -96,6 +98,8 @@ I don't run the tests on the Omega2 because the disk space is limited, so I only
 ```
 $ pip install WebTest
 $ python test/test_notifhome.py
+$ python test/test_model_user.py
+$ python test/test_model_notification.py
 ```
 
 ### Future version
