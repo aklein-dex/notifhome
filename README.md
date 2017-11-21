@@ -22,14 +22,14 @@ For pictures, please see [here](http://alexandreklein.com/notifhome.html).
 #### Problem
 
 When I'm outside and try to contact my wife on her cellphone, 
-she sometimes doesn't hear it ringing because she is in another room or it is in vibration mode in her bag. 
+she sometimes doesn't hear it ringing because it is in another room or it is in vibration mode in her bag. 
 
 #### Solution
 
 With this project, I'm able to send messages to the Omega2 to notify my wife. The Omega2 will turn on the LED, 
 emit a beep and show a message on the screen.
 
-To acknowledge a notification, simply press the button on the Omega2 or use the Website.
+To acknowledge a notification, my wife has to simply press the button on the Omega2 or use the Website.
 
 ### Instructions
 
@@ -47,7 +47,7 @@ git version 2.11.0
 ```
 ##### Transfer this project
 
-After installing `git`, just clone this repository.
+After installing `git`, clone this repository.
 
 Or you may want to clone this repository on your PC and transfer 
 the files to the Omega2 using `scp` if you don't want to install `git`.
@@ -61,7 +61,7 @@ $ opkg update
 $ opkg install python-light python-email python-logging python-codecs python-openssl pyOledExp pyOnionGpio
 ```
 
-Note: we are using python 2.7 because of pyOledExp.
+Note: this project is using python 2.7 because of pyOledExp.
 
 #### Setup
 
@@ -70,7 +70,7 @@ Note: we are using python 2.7 because of pyOledExp.
 Default values are in `config/config.py` but do not modify this file. Instead, create another file `config/myconfig.local` 
 to override the default values.
 The file `config/myconfig.local` is not versioned, so there is no risk to lose it when updating the repository.
-Make sure to start the file with `[notifhome]`. Here is an example:
+The first line of the file has to be `[notifhome]`. Here is an example:
 ```
 [notifhome]
 host = 127.0.0.1
@@ -85,7 +85,7 @@ Edit the file `config/users.authz` to add users. The format is `{username}:{pass
 
 #### Run the server
 
-Simply run the command:
+Run the command:
 ```
 $ python startup.py
 ```
@@ -106,8 +106,8 @@ $ python test/test_model_notification.py
 
 #### Version 2
 
-Multiple boards will be connected together. There will be 1 master and multiple slaves (placed in different rooms). 
-A user connects to the master to send a notification and the notifications propagate to all the slaves.
+Multiple boards will be connected together. There will be 1 master and multiple slaves (placed in different rooms of the house). 
+A user can send a notification to the master board only. Then the master board forwards the notification to all the slaves.
 
 #### Version 3
 
